@@ -1,44 +1,18 @@
 //DOM-Elements.js
 
 const domElements = (function () {
-
-    const createDiv = (state) => {
-        // const elemDiv = document.createElement("div");
-        // elemDiv.setAttribute("class", state.elemClass);
-        // elemDiv.setAttribute("id", state.id);
-        // return elemDiv;
-    }
-
-    const createDialogBox = (state) => {
-        dialogBox = document.createElement("dialog");
-        dialogBox.setAttribute("id", state.id);
-        return dialogBox;
-    }
-
-    // <form id="modalForm"></form>
     
     const createElement = (elemType, state) => {
         const element = document.createElement(elemType);
-        element.setAttribute("name", state.name);
         element.setAttribute("id", state.id);
-        if (state.elemClass) element.setAttribute("class", state.elemClass);
 
+        if (state.name) element.setAttribute("name", state.name);
+        if (state.elemClass) element.setAttribute("class", state.elemClass);
         if (state.type) element.setAttribute("type", state.type); // some inputs have 'type', other dont.
         if (state.value) element.setAttribute("value", state.value); // some inputs have 'value', other dont.
         
         return { element };
     }
-
-
-    // const createElement = (state) => {
-    //     const input = document.createElement("input");
-    //     input.setAttribute("name", state.name);
-    //     input.setAttribute("id", state.id);
-    //     if (state.type) input.setAttribute("type", state.type); // some inputs have 'type', other dont.
-    //     if (state.value) input.setAttribute("value", state.value); // some inputs have 'value', other dont.
-        
-    //     return { input };
-    // }
 
     const createLabel = (state) => {
         const label = document.createElement("label");
@@ -89,7 +63,7 @@ const domElements = (function () {
 
     }
 
-    return { createElement, createLabel, createFieldset, createDiv, createDialogBox, createTextArea, createPrioritySelector };
+    return { createElement, createLabel, createFieldset, createTextArea, createPrioritySelector };
 
 })();
 

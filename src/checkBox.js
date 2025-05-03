@@ -2,11 +2,17 @@
 
 import { domElements } from "./DOM-Elements.js"
 
-const { createElement, createLabel, createFieldset, createDiv, createDialogBox, createTextArea, createPrioritySelector } = domElements;
+const { createElement, createLabel, createFieldset, createTextArea, createPrioritySelector } = domElements;
 
 // CREATE DIV
 
-const div = createElement("div", { id: crypto.randomUUID(), elemClass: "formDiv" }).element;
+const formDiv = createElement("div", { id: crypto.randomUUID(), elemClass: "formDiv" }).element;
+
+const formElement = createElement("form", { id: crypto.randomUUID() }).element;
+
+const todoFieldset = createFieldset ({ text: "TODO LIST" }).fieldset;
+
+const dialogBox = createElement("dialog", { id: crypto.randomUUID() }).element;
 
 // CREATE INPUT ELEMENT
 function inputElement(elemType, state) {  // using composition to create the element
@@ -47,22 +53,33 @@ const priority = priorityOptions({ name: "priorityList", text: "Priority: ", id:
 
 // APPEND TO DIV
 
-div.appendChild(todoTitle.label);
-div.appendChild(todoTitle.element);
 
-div.appendChild(todoNotes.label);
-div.appendChild(todoNotes.textarea);
+formElement.appendChild(todoTitle.label);
+formElement.appendChild(todoTitle.element);
 
-div.appendChild(dueDate.label);
-div.appendChild(dueDate.element);
+formElement.appendChild(todoNotes.label);
+formElement.appendChild(todoNotes.textarea);
 
-div.appendChild(priority.label);
-div.appendChild(priority.selectOptions);
+formElement.appendChild(dueDate.label);
+formElement.appendChild(dueDate.element);
 
-div.appendChild(checkbox.element);
-div.appendChild(checkbox.label);
+formElement.appendChild(priority.label);
+formElement.appendChild(priority.selectOptions);
 
-export { div }
+formElement.appendChild(checkbox.element);
+formElement.appendChild(checkbox.label);
+
+todoFieldset.appendChild(formElement);
+
+dialogBox.appendChild(todoFieldset);
+
+formDiv.appendChild(dialogBox);
+
+document.body.appendChild(formDiv);
+
+dialogBox.showModal();
+
+export { formDiv }
 
 
 
