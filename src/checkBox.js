@@ -1,32 +1,132 @@
-import checkBox from "./DOM-Elements.js"
+// checkbox.js (ill rename this later)
 
 
-function createCheckBox(state){  // using composition to create the checkbox
-    return{
-        ...createInput(state),
+
+import { domElements } from "./DOM-Elements.js"
+
+
+
+const { createInput, createLabel, createFieldset, createDiv, createDialogBox, createTextArea, createPrioritySelector } = domElements;
+
+
+
+// CREATE DIV
+
+const div = createDiv({ id: crypto.randomUUID(), elemClass: "formDiv" });
+
+
+
+// CREATE INPUT ELEMENT
+
+function inputElement(state) { // using composition to create the element
+
+    return {
+
+        ...createInput(state), // similar results to : const input = createInput(state);
+
         ...createLabel(state),
+
     }
 
-// const toDoItem = ()=>{
-//     title,
-//     notes,
-//     dueDate,
-//     priority,
-// }
+}
 
 
-// checkBox1 = checkBox({ id:'item1', value:"toDo1", name:"toDoList", text:'inputText' })
-// checkBox1.appendfieldSet1
 
-// const checkBox = (state) => {
-//     const input = document.createElement("input")
-//     input.setAttribute("id",state.id);
-//     input.setAttribute("type","checkbox");
-//     input.setAttribute("value",state.value);
-//     input.setAttribute("name",state.name);
+// CREATE TEXTAREA
 
-//     const label = document.createElement("label");
-//     label.setAttribute("for", state.id);
-//     label.innerText = state.text;
+function textArea(state) { // using composition to create the element
 
-//     return {input, label}
+    return {
+
+        ...createTextArea(state),
+
+        ...createLabel(state),
+
+    }
+
+}
+
+
+
+// CREATE PRIORITY OPTIONS
+
+function priorityOptions(state) { // using composition to create the element
+
+    return {
+
+        ...createPrioritySelector(state),
+
+        ...createLabel(state),
+
+    }
+
+}
+
+
+
+const checkbox = inputElement({ name: "todo-checkbox", type: "checkbox", text: "Title: ", id: crypto.randomUUID() });
+
+
+
+const todoTitle = inputElement({ name: "todo-title", type: "text", text: "Title: ", id: crypto.randomUUID() });
+
+
+
+const todoNotes = textArea({ name: "todo-notes", id: crypto.randomUUID(), placeholder: "Notes" });
+
+
+
+const dueDate = inputElement({ name: "todo-dueDate", type: "date", text: "Due Date: ", id: crypto.randomUUID() });
+
+
+
+const priority = priorityOptions({ name: "priorityList", text: "Priority: ", id: crypto.randomUUID() });
+
+
+
+console.log("check1.id: ", checkbox.label, checkbox.input);
+
+
+
+
+
+
+
+// APPEND TO DIV
+
+
+
+div.appendChild(todoTitle.label);
+
+div.appendChild(todoTitle.input);
+
+
+
+div.appendChild(todoNotes.label);
+
+div.appendChild(todoNotes.textarea);
+
+
+
+div.appendChild(dueDate.label);
+
+div.appendChild(dueDate.input);
+
+
+
+div.appendChild(priority.label);
+
+div.appendChild(priority.selectOptions);
+
+
+
+div.appendChild(checkbox.input);
+
+div.appendChild(checkbox.label);
+
+
+
+export { div }
+
+
+
