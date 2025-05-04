@@ -15,3 +15,28 @@
         
     //     return { input };
     // }
+
+
+
+// const createDisplayDialog = (function () {
+//     // const displayForm = createElement("form", { name: "displayForm", id: crypto.randomUUID() }).element;
+//     // const displayDialog = createElement("dialog", { id: crypto.randomUUID() }).element;
+//     // const storeFormDiv = storeFormInput();
+
+//     // displayForm.appendChild(storeFormDiv);
+//     // displayDialog.appendChild(displayForm);
+//     // document.body.appendChild(displayDialog);
+
+//     return { displayDialog };
+// })();
+
+// const dialogs = (function () {
+//     return {
+//         ...createEditableDialog,
+//         ...createDisplayDialog,
+
+//     }
+// })();
+
+// dialogs();
+// const { editableDialog, editableForm } = createEditableDialog();

@@ -32,6 +32,8 @@ const domElements = (function () {
 
     const createTextArea = (state) => {
         const textarea = document.createElement("textarea");
+        textarea.setAttribute("id", state.id);
+        if (state.name) textarea.setAttribute("name", state.name);
         if (state.placeholder) textarea.setAttribute("placeholder", state.placeholder);
         return { textarea }
     }
