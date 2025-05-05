@@ -4,11 +4,11 @@
 // import { domElements }  from "./DOM-Elements";
 // import { storeUserInput } from "./operations.js"
 
-import { createButton, createEditableDialog } from "./createFormElements.js";
-import { basicButtonStyles } from "./js-styles.js"
+import { createButton } from "./createFormElements.js";
+import { basicButtonStyles } from "./js-styles.js";
+import { createDialogs, storeEditableDialog, storeDisplayDialog } from "./createDialogs.js";
 
-const { editableDialog, editableForm } = createEditableDialog;
-
+const { editableForm, editableDialog } = createDialogs();
 
 const addTodoButton = createButton("button", "+", basicButtonStyles, { type: "button", elemClass: "addButton", id: crypto.randomUUID() });
 document.body.appendChild(addTodoButton);   
@@ -20,11 +20,15 @@ document.body.appendChild(editableDialog); //
 
 addTodoButton.addEventListener("click",()=>{
     editableForm.reset();
-    editableDialog.showModal()
+    editableDialog.showModal();
 });
 
 displayTodo.addEventListener("click", ()=>{
-    displayDialog.showModal();
+    const digs = storeDisplayDialog();
+    const digs2 = digs[digs.length-1];
+    console.log("digsdigsdigs: ", digs2);
+    document.body.appendChild(digs2);
+    digs2.showModal();  
 } )
 
  

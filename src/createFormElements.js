@@ -38,10 +38,13 @@ function createPriorityOptions(state) {  // using composition to create the elem
     }
 }
 
-const createFormFields = (function () {
+const createFormFields = function () {
     const editableDialog = createElement("dialog", { id: crypto.randomUUID() }).element;
+    
     const todoFieldset = createFieldset({ text: "TODO LIST" }).fieldset
     const editableForm = createElement("form", { name: "editableForm", id: crypto.randomUUID() }).element;
+
+    console.log("editableForm.id 12: ", editableForm.id);
 
     const displayForm = createElement("form", { name: "displayForm", id: crypto.randomUUID() }).element;
     const displayDialog = createElement("dialog", { id: crypto.randomUUID() }).element;
@@ -56,76 +59,10 @@ const createFormFields = (function () {
     const confirmButton = createButton("button", "Confirm", basicButtonStyles, { type: "submit", elemClass: "submitButton", id: crypto.randomUUID() });
 
     return { checkbox, todoTitle, todoNotes, dueDate, priority, closeButton, resetButton, confirmButton, editableForm, todoFieldset, editableDialog, displayForm, displayDialog };
-})();
-
-// CREATE EDITABLE DIALOGBOX
-
-const createEditableDialog = (function () {
-    const { checkbox, todoTitle, todoNotes, dueDate, priority, closeButton, resetButton, confirmButton, editableForm, todoFieldset, editableDialog, displayForm, displayDialog } = createFormFields;
-
-    editableDialog.appendChild(closeButton);
-    resetButton.style.cssText = "width: 5rem; font-size: 12px";
-    confirmButton.style.cssText = "width: 5rem; font-size: 12px";
-
-    editableForm.appendChild(todoTitle.label);
-    editableForm.appendChild(todoTitle.element);
-
-    editableForm.appendChild(todoNotes.label);
-    editableForm.appendChild(todoNotes.textarea);
-
-    editableForm.appendChild(dueDate.label);
-    editableForm.appendChild(dueDate.element);
-
-    editableForm.appendChild(priority.label);
-    editableForm.appendChild(priority.selectOptions);
-
-    editableForm.appendChild(checkbox.element);
-    editableForm.appendChild(checkbox.label);
-
-    editableForm.appendChild(resetButton);
-    editableForm.appendChild(confirmButton);
-
-    todoFieldset.appendChild(editableForm);
-
-    editableDialog.appendChild(todoFieldset);
-
-    // Attach event listeners 
-
-    closeButton.addEventListener("click", () => editableDialog.close());
-    confirmButton.addEventListener("click", (e) => {
-        e.preventDefault();
-        const retrieveFormInput = storeFormInput(); // 
-        console.log(retrieveFormInput);
-        editableDialog.close();
-
-        displayForm.appendChild(retrieveFormInput);
-        displayDialog.appendChild(displayForm);
-        document.body.appendChild(displayDialog);
-    });
-
-    return { editableDialog, editableForm, displayDialog, displayForm };
-})();
-
-
-const storeFormInput = function () {
-    const { editableForm } = createFormFields;
-    console.log(editableForm);
-    const storeFormDiv = createElement("div", { id: crypto.randomUUID(), elemClass: "storeFormDiv" }).element;
-    const titleValue = editableForm.elements["todo-title"].value;
-    const notesValue = editableForm.elements["todo-notes"].value;
-    const dueDateValue = editableForm.elements["todo-dueDate"].value;
-    const priorityListValue = editableForm.elements["priorityList"].value;
-
-    storeFormDiv.innerText = `
-                            Title:   ${titleValue}
-                            Notes:    ${notesValue}
-                            Due Date: ${dueDateValue}
-                            Priority: ${priorityListValue}
-                            `
-    return storeFormDiv;
 };
 
-export { createButton, createEditableDialog };
+
+export { createButton, createFormFields }; 
 
 
 
