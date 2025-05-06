@@ -1,0 +1,399 @@
+diff --git a/src/DOM-Elements.js b/src/DOM-Elements.js
+index af65a64..102e2fd 100644
+--- a/src/DOM-Elements.js
++++ b/src/DOM-Elements.js
+@@ -5,12 +5,10 @@ const domElements = (function () {
+     const createElement = (elemType, state) => {
+         const element = document.createElement(elemType);
+         element.setAttribute("id", state.id);
+-
+         if (state.name) element.setAttribute("name", state.name);
+         if (state.elemClass) element.setAttribute("class", state.elemClass);
+         if (state.type) element.setAttribute("type", state.type); 
+         if (state.value) element.setAttribute("value", state.value);
+-        
+         return { element };
+     }
+ 
+@@ -27,7 +25,6 @@ const domElements = (function () {
+         legend.innerText = state.text
+         fieldset.appendChild(legend);
+         return { fieldset };
+-
+     };
+ 
+     const createTextArea = (state) => {
+@@ -57,10 +54,8 @@ const domElements = (function () {
+         selectOptions.appendChild(option1);
+         selectOptions.appendChild(option2);
+         selectOptions.appendChild(option3);
+-
+         return { selectOptions }
+     }
+-
+     return { createElement, createLabel, createFieldset, createTextArea, createPrioritySelector };
+ 
+ })();
+diff --git a/src/README.md b/src/README.md
+index 72ccd0a..8719036 100644
+--- a/src/README.md
++++ b/src/README.md
+@@ -16,6 +16,17 @@
+     //     return { input };
+     // }
+ 
++// function createDataAttribute (){
++//     // const dataRef = crypto.randomUUID();
++//     const getdataVal = () => crypto.randomUUID()
++//     return getdataVal
++// }
++
++// function createDataAttribute2 (){
++//     const dataRef = crypto.randomUUID();
++//     const getdataVal = () => dataRef
++//     return dataRef
++// }
+ 
+ 
+ // const createDisplayDialog = (function () {
+diff --git a/src/createDialogs.js b/src/createDialogs.js
+index bc6d0a5..2e80108 100644
+--- a/src/createDialogs.js
++++ b/src/createDialogs.js
+@@ -1,14 +1,13 @@
+ // createDialogs.js
+ 
+ import { domElements } from "./DOM-Elements.js";
+-import { createFormFields } from "./createFormElements.js";
++import { createButton, createFormFields } from "./createFormElements.js";
+ 
+-const { createElement } = domElements;
++const { createElement } = domElements; 
+ 
+ function storeData(){
+     const storageArr = [];
+     return function dataStorage(data){
+-        // storageArr.push(data);
+         if (data !== undefined && !storageArr.includes (data)) storageArr.push(data);
+         // if (!storageArr.includes (id)) storageArr.push(editableDialog);
+         return storageArr;
+@@ -18,17 +17,81 @@ function storeData(){
+ const storeEditableDialog = storeData();
+ const storeDisplayDialog = storeData();
+ 
++// CREATE SCREEN DISPLAY
++// quickdispdiv
++// checkbox // title // duedate // View // Edit / Delete 
++// store data-id of dispdialog
++
++// assign same data-id in dispdialog, quickdisp and edit dialo.
++
++// on view click, find data-id in dispdialog, and displaye the array
++
++// on edit click, find data-id in editable dial, and del, 
++// and dispdig and delete and also delete the quickdisp (removechild).
++
++ 
++function retrieveAndDispDialog(dataSetAttr){
++    const dialArr =  storeDisplayDialog();
++    const dispdial = dialArr.filter((arr) => arr.dataset.ref == dataSetAttr);
++    document.body.appendChild(dispdial[0]);
++    dispdial[0].showModal();
++    console.log("........", dispdial[0])
++}
++
++
++function storeQuickDisplayDiv(checkbox, title, duedate, dataSetAttr){
++    const quickDisplayDiv = createElement("div", { id: crypto.randomUUID(), elemClass: "quickDisplayDiv" }).element;
++    quickDisplayDiv.dataset.ref = dataSetAttr; // assigning data-ref to editable dialog.
++    
++    const quickDetailsDiv = createElement("div", { id: crypto.randomUUID(), elemClass: "quickDetailsDiv" }).element;
++    const quickActionDiv = createElement("div", { id: crypto.randomUUID(), elemClass: "quickActionDiv" }).element;
++    
++    quickDetailsDiv.appendChild(checkbox.element);
++    const titleDiv = createElement("div", { id: crypto.randomUUID(), elemClass: "quickElemDisplayDiv" }).element;
++    const duedateDiv = createElement("div", { id: crypto.randomUUID(), elemClass: "quickElemDisplayDiv" }).element;
++    // titleDiv.innerText = `${title}`;
++    checkbox.label.innerText = `${title}`;
++    duedateDiv.innerText = `${duedate}`;
++    // quickDetailsDiv.appendChild(titleDiv);
++    quickDetailsDiv.appendChild(checkbox.label);
++    quickDetailsDiv.appendChild(duedateDiv);
++    
++    const viewButton = createButton("button", "View", { type: "button", elemClass: "quickDispButton", id: crypto.randomUUID() });
++    const editButton = createButton("button", "Edit", { type: "button", elemClass: "quickDispButton", id: crypto.randomUUID() });
++    const deleteButton = createButton("button", "DEL", { type: "button", elemClass: "quickDispButton", id: crypto.randomUUID() });
++    quickActionDiv.appendChild(viewButton);
++    quickActionDiv.appendChild(editButton);
++    quickActionDiv.appendChild(deleteButton);
++    
++    quickDisplayDiv.appendChild(quickDetailsDiv);
++    quickDisplayDiv.appendChild(quickActionDiv);
++
++    document.body.appendChild(quickDisplayDiv);
++
++    viewButton.addEventListener("click", () => {
++        retrieveAndDispDialog(dataSetAttr)
++    })
++}
++
++
++
++
+ // CREATE EDITABLE DIALOGBOX
+ 
+ function createDialogs() {
+-    const { checkbox, todoTitle, todoNotes, dueDate, priority, closeButton, resetButton, confirmButton, editableForm, todoFieldset, editableDialog } = createFormFields();
++    const { todoTitle, todoNotes, dueDate, priority, closeButton, resetButton, confirmButton, editableForm, todoFieldset, editableDialog } = createFormFields();
++
++    const dataAttr = crypto.randomUUID();
++    
+     // Creating editable dialog
++    editableDialog.dataset.ref = dataAttr; // assigning data-ref to ediatble dialog.
++
+     editableDialog.appendChild(closeButton);
+     resetButton.style.cssText = "width: 5rem; font-size: 12px";
+     confirmButton.style.cssText = "width: 5rem; font-size: 12px";
+ 
+     editableForm.appendChild(todoTitle.label);
+-    editableForm.appendChild(todoTitle.element);
++    editableForm.appendChild(todoTitle.element);  // the 'element' is 'input' in all.
+ 
+     editableForm.appendChild(todoNotes.label);
+     editableForm.appendChild(todoNotes.textarea);
+@@ -39,8 +102,8 @@ function createDialogs() {
+     editableForm.appendChild(priority.label);
+     editableForm.appendChild(priority.selectOptions);
+ 
+-    editableForm.appendChild(checkbox.element);
+-    editableForm.appendChild(checkbox.label);
++    // editableForm.appendChild(checkbox.element);
++    // editableForm.appendChild(checkbox.label);
+ 
+     editableForm.appendChild(resetButton);
+     editableForm.appendChild(confirmButton);
+@@ -54,20 +117,16 @@ function createDialogs() {
+     closeButton.addEventListener("click", () => editableDialog.close());
+     confirmButton.addEventListener("click", (e) => {
+         e.preventDefault();
+-        storeFormInput(editableForm, editableDialog); //   
++        storeFormInput(editableForm, editableDialog, dataAttr); //
+         // console.log(retrieveFormInput);
+-
+         editableDialog.close();
+-
+     });
+     return { editableForm, editableDialog };
+ };
+ 
+-function storeFormInput(todoForm, todoDialog) {
+-    const { displayDialog, displayForm } = createFormFields();
+-
+-    // console.log("todoForm.id 3434: ", todoForm.id);
+-    // console.log("hmmmmm.....", todoForm.elements["todo-title"]);
++function storeFormInput(todoForm, todoDialog, dataSetAttr) {
++    const { checkbox, displayDialog, displayForm } = createFormFields();
++    displayDialog.dataset.ref = dataSetAttr; // assigning data-ref attribute
+     
+     const storeFormDiv = createElement("div", { id: crypto.randomUUID(), elemClass: "storeFormDiv" }).element;
+     const titleValue = todoForm.elements["todo-title"].value;
+@@ -81,18 +140,23 @@ function storeFormInput(todoForm, todoDialog) {
+                             Due Date: ${dueDateValue}
+                             Priority: ${priorityListValue}
+                             `
+-
+     displayForm.appendChild(storeFormDiv);
+     displayDialog.appendChild(displayForm);
+ 
++    console.log("todoDialog: ", todoDialog);
++    console.log("displayDialog", displayDialog);
++
+     storeEditableDialog(todoDialog);
+     storeDisplayDialog(displayDialog); 
++    storeQuickDisplayDiv(checkbox, titleValue, dueDateValue, dataSetAttr);  
+ 
+-    // console.log ('disp ddiaaa: ', todoForm )
+-    // console.log ('stoEditdata: ', storeDisplayDialog() )
++    // console.log ('disp ddiaaa: ', todoForm );
++    console.log ('----stoEditdata-------: ', storeDisplayDialog()[0].dataset.ref );
++    console.log ('----stoEditdata-------: ', storeDisplayDialog );
+ 
+     // return { storeEditableDialog, storeDisplayDialog };
+ };
+ 
++
+ export { createDialogs, storeFormInput, storeEditableDialog, storeDisplayDialog };
+ 
+diff --git a/src/createFormElements.js b/src/createFormElements.js
+index d09c895..7311403 100644
+--- a/src/createFormElements.js
++++ b/src/createFormElements.js
+@@ -2,15 +2,14 @@
+ 
+ import { domElements } from "./DOM-Elements.js";
+ import { basicButtonStyles } from "./js-styles.js";
+-// import { storeUserInput } from "./operations.js";
+ 
+ const { createElement, createLabel, createFieldset, createTextArea, createPrioritySelector } = domElements;
+ 
+ // CREATE BUTTONS
+-function createButton(buttonType, text, cssStyle, state) {
++function createButton(buttonType, text, state) {
+     const button = createElement(buttonType, state).element;
+     button.innerText = text;
+-    button.style.cssText = cssStyle;
++    // button.style.cssText = cssStyle;
+     return button;
+ }
+ 
+@@ -40,29 +39,23 @@ function createPriorityOptions(state) {  // using composition to create the elem
+ 
+ const createFormFields = function () {
+     const editableDialog = createElement("dialog", { id: crypto.randomUUID() }).element;
+-    
+     const todoFieldset = createFieldset({ text: "TODO LIST" }).fieldset
+     const editableForm = createElement("form", { name: "editableForm", id: crypto.randomUUID() }).element;
+-
+-    console.log("editableForm.id 12: ", editableForm.id);
+-
+     const displayForm = createElement("form", { name: "displayForm", id: crypto.randomUUID() }).element;
+     const displayDialog = createElement("dialog", { id: crypto.randomUUID() }).element;
+-
+-    const checkbox = createInputElement("input", { name: "todo-checkbox", type: "checkbox", text: "Title: ", id: crypto.randomUUID() });
++    const checkbox = createInputElement("input", { name: "todo-checkbox", type: "checkbox", elemClass: "checkbox", text: "Title: ", id: crypto.randomUUID() });
+     const todoTitle = createInputElement("input", { name: "todo-title", type: "text", text: "Title: ", id: crypto.randomUUID() });
+     const todoNotes = createTextAreaElement({ name: "todo-notes", id: crypto.randomUUID(), placeholder: "Notes" });
+     const dueDate = createInputElement("input", { name: "todo-dueDate", type: "date", text: "Due Date: ", id: crypto.randomUUID() });
+     const priority = createPriorityOptions({ name: "priorityList", text: "Priority: ", id: crypto.randomUUID() });
+-    const closeButton = createButton("button", "X", basicButtonStyles, { type: "button", elemClass: "closeButton", id: crypto.randomUUID() });
+-    const resetButton = createButton("button", "Clear", basicButtonStyles, { type: "reset", elemClass: "resetButton", id: crypto.randomUUID() });
+-    const confirmButton = createButton("button", "Confirm", basicButtonStyles, { type: "submit", elemClass: "submitButton", id: crypto.randomUUID() });
++    const closeButton = createButton("button", "X", { type: "button", elemClass: "closeButton", id: crypto.randomUUID() });
++    const resetButton = createButton("button", "Clear", { type: "reset", elemClass: "resetButton", id: crypto.randomUUID() });
++    const confirmButton = createButton("button", "Confirm", { type: "submit", elemClass: "submitButton", id: crypto.randomUUID() });
+ 
+     return { checkbox, todoTitle, todoNotes, dueDate, priority, closeButton, resetButton, confirmButton, editableForm, todoFieldset, editableDialog, displayForm, displayDialog };
+ };
+ 
+-
+-export { createButton, createFormFields }; 
++export { createButton, createFormFields };  
+ 
+ 
+ 
+diff --git a/src/index.js b/src/index.js
+index aab3082..0a57f44 100644
+--- a/src/index.js
++++ b/src/index.js
+@@ -1,32 +1,30 @@
+ // index.js
+ 
+-// import "./styles.css";
++import "./styles.css";
+ // import { domElements }  from "./DOM-Elements";
+ // import { storeUserInput } from "./operations.js"
++// import { basicButtonStyles } from "./js-styles.js";
+ 
+ import { createButton } from "./createFormElements.js";
+-import { basicButtonStyles } from "./js-styles.js";
+ import { createDialogs, storeEditableDialog, storeDisplayDialog } from "./createDialogs.js";
+ 
+-const { editableForm, editableDialog } = createDialogs();
+-
+-const addTodoButton = createButton("button", "+", basicButtonStyles, { type: "button", elemClass: "addButton", id: crypto.randomUUID() });
++const addTodoButton = createButton("button", "+", { type: "button", elemClass: "addButton", id: crypto.randomUUID() });
+ document.body.appendChild(addTodoButton);   
+ 
+-const displayTodo = createButton("button", "DISP", basicButtonStyles, { type: "button", elemClass: "addButton", id: crypto.randomUUID() });
++const displayTodo = createButton("button", "DISP", { type: "button", elemClass: "displayButton", id: crypto.randomUUID() });
+ document.body.appendChild(displayTodo);
+ 
+-document.body.appendChild(editableDialog); //
+-
+ addTodoButton.addEventListener("click",()=>{
+-    editableForm.reset();
++    const { editableForm, editableDialog } = createDialogs();
++    document.body.appendChild(editableDialog); //
++    // editableForm.reset();
+     editableDialog.showModal();
+ });
+ 
+ displayTodo.addEventListener("click", ()=>{
+     const digs = storeDisplayDialog();
+     const digs2 = digs[digs.length-1];
+-    console.log("digsdigsdigs: ", digs2);
++    // console.log("digsdigsdigs: ", digs2);
+     document.body.appendChild(digs2);
+     digs2.showModal();  
+ } )
+diff --git a/src/styles.css b/src/styles.css
+index e69de29..0d65515 100644
+--- a/src/styles.css
++++ b/src/styles.css
+@@ -0,0 +1,66 @@
++html {
++    box-sizing: border-box;
++}
++
++*,
++*::after,
++*::before {
++    box-sizing: inherit;
++}
++
++.quickDisplayDiv
++ {
++    display: flex;
++    justify-content: space-between;
++    border: 1px solid red;
++    background-color: aqua;
++    margin-bottom: 5px;
++    margin-top: 5px;
++}
++
++.quickDetailsDiv,
++.quickActionDiv {
++    display: grid;
++    grid-template-columns: repeat(3, 85px);
++    align-content: center;
++    /* justify-content: space-between; */
++    /* flex: 1 1 0; */
++    /* gap: 30px; */
++    /* border: 1px solid red; */
++    /* justify-content: space-between;
++    border: 1px solid red;
++    background-color: aqua; */
++}
++
++button {
++    width: 30px;
++    height: 30px;
++    text-align: center;
++    /* border: 4px solid white; */
++    border-color: white;
++    font-size: 20px;
++    /* background: none; */
++}
++
++.quickDispButton{
++    width: 50px;
++    height: 30px;
++    font-size: 1rem;
++}
++
++.resetButton,.confirmButton {
++    width: 5rem; 
++    font-size: 12px;
++}
++
++input[type="checkbox"] {
++    width: 20px; /* ✅ Adjust width */
++    height: 20px; /* ✅ Adjust height */
++    align-self: center;
++}
++
++input[type="checkbox"]:checked + label {
++    text-decoration: line-through; /* ✅ Adds strikethrough when checked */
++    color: gray; /* Optional: Dim the text color */
++}
++

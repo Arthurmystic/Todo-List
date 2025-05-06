@@ -16,6 +16,17 @@
     //     return { input };
     // }
 
+// function createDataAttribute (){
+//     // const dataRef = crypto.randomUUID();
+//     const getdataVal = () => crypto.randomUUID()
+//     return getdataVal
+// }
+
+// function createDataAttribute2 (){
+//     const dataRef = crypto.randomUUID();
+//     const getdataVal = () => dataRef
+//     return dataRef
+// }
 
 
 // const createDisplayDialog = (function () {

@@ -1,0 +1,66 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: inherit;
+}
+
+.quickDisplayDiv
+ {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid red;
+    background-color: aqua;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.quickDetailsDiv,
+.quickActionDiv {
+    display: grid;
+    grid-template-columns: repeat(3, 85px);
+    align-content: center;
+    /* justify-content: space-between; */
+    /* flex: 1 1 0; */
+    /* gap: 30px; */
+    /* border: 1px solid red; */
+    /* justify-content: space-between;
+    border: 1px solid red;
+    background-color: aqua; */
+}
+
+button {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    /* border: 4px solid white; */
+    border-color: white;
+    font-size: 20px;
+    /* background: none; */
+}
+
+.quickDispButton{
+    width: 50px;
+    height: 30px;
+    font-size: 1rem;
+}
+
+.resetButton,.confirmButton {
+    width: 5rem; 
+    font-size: 12px;
+}
+
+input[type="checkbox"] {
+    width: 20px; /* ✅ Adjust width */
+    height: 20px; /* ✅ Adjust height */
+    align-self: center;
+}
+
+input[type="checkbox"]:checked + label {
+    text-decoration: line-through; /* ✅ Adds strikethrough when checked */
+    color: gray; /* Optional: Dim the text color */
+}
+

@@ -5,12 +5,10 @@ const domElements = (function () {
     const createElement = (elemType, state) => {
         const element = document.createElement(elemType);
         element.setAttribute("id", state.id);
-
         if (state.name) element.setAttribute("name", state.name);
         if (state.elemClass) element.setAttribute("class", state.elemClass);
         if (state.type) element.setAttribute("type", state.type); 
         if (state.value) element.setAttribute("value", state.value);
-        
         return { element };
     }
 
@@ -27,7 +25,6 @@ const domElements = (function () {
         legend.innerText = state.text
         fieldset.appendChild(legend);
         return { fieldset };
-
     };
 
     const createTextArea = (state) => {
@@ -57,10 +54,8 @@ const domElements = (function () {
         selectOptions.appendChild(option1);
         selectOptions.appendChild(option2);
         selectOptions.appendChild(option3);
-
         return { selectOptions }
     }
-
     return { createElement, createLabel, createFieldset, createTextArea, createPrioritySelector };
 
 })();
