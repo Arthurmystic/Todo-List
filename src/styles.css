@@ -18,18 +18,16 @@ html {
     margin-top: 5px;
 }
 
-.quickDetailsDiv,
+.quickDetailsDiv{
+    display: grid;
+    grid-template-columns: 40px repeat(2, 150px);
+    align-content: center;
+}
+
 .quickActionDiv {
     display: grid;
     grid-template-columns: repeat(3, 85px);
     align-content: center;
-    /* justify-content: space-between; */
-    /* flex: 1 1 0; */
-    /* gap: 30px; */
-    /* border: 1px solid red; */
-    /* justify-content: space-between;
-    border: 1px solid red;
-    background-color: aqua; */
 }
 
 button {

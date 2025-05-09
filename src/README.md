@@ -29,6 +29,21 @@
 // }
 
 
+// function retrieveAndDeleteDialog(dataSetAttr){
+//     const displayDialogArray = storeDisplayDialog() 
+
+//     // console.log(displayDialogArray.length,`2________________2`,displayDialogArray[0]);
+    
+//     // console.log(displayDialogArray.length, "1____________1", displayDialogArray[0])
+
+//     const index = displayDialogArray.findIndex(arr => arr.dataset.ref == dataSetAttr); // find index of dialogstore array whose data-ref == dataSetAttr
+//     displayDialogArray.splice(index,); // go to index1, and delete 1 item from there.
+
+//     // console.log(`${displayDialogArray[0]}, 2_____________ ${displayDialogArray.length} __________2`, displayDialogArray.length)
+    
+// }
+
+
 // const createDisplayDialog = (function () {
 //     // const displayForm = createElement("form", { name: "displayForm", id: crypto.randomUUID() }).element;
 //     // const displayDialog = createElement("dialog", { id: crypto.randomUUID() }).element;
