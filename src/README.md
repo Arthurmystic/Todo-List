@@ -66,3 +66,21 @@
 
 // dialogs();
 // const { editableDialog, editableForm } = createEditableDialog();
+
+
+ // CREATE SCREEN DISPLAY
+// quickdispdiv
+// checkbox // title // duedate // View // Edit / Delete 
+// store data-id of dispdialog
+
+// assign same data-id in dispdialog, quickdisp and edit dialo.
+
+// on view click, find data-id in dispdialog, and displaye the array
+
+// on edit click, find data-id in editable dial, and del, 
+// and dispdig and delete and also delete the quickdisp (removechild).
+
+
+// const viewButton = button("", "View", 'quickDispButton');
+    // const editButton = button("Edit", 'quickDispButton');
+    // const deleteButton = button("DEL", 'quickDispButton');
