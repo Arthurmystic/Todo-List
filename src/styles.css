@@ -8,6 +8,39 @@ html {
     box-sizing: inherit;
 }
 
+body{
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 1fr 8fr 1fr;
+    /* grid-template-rows: 10vh 80vh 10vh; */
+}
+
+header{
+    grid-row: 1 ;
+    grid-column: 1 / -1;
+    border: 1px solid blue;
+}
+
+#projectsPane{
+    grid-row: 2 / 3;
+    grid-column: 1 / 2;
+    border: 1px solid blue;
+}
+
+#todoListPane{
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
+    border: 1px solid blue;
+}
+
+footer{
+    grid-row: 4;
+    grid-column: 1 / -1;
+    border: 1px solid blue;
+}
+
+
 .quickDisplayDiv
  {
     display: flex;
