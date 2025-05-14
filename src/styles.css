@@ -8,50 +8,219 @@ html {
     box-sizing: inherit;
 }
 
-body{
+body {
     display: grid;
-    height: 100vh;
+    position: relative;
+    /* height: 100vh; */
     grid-template-columns: 1fr 3fr;
-    grid-template-rows: 1fr 8fr 1fr;
+    grid-template-rows: 1.3fr 80fr 1fr;
     /* grid-template-rows: 10vh 80vh 10vh; */
 }
 
-header{
-    grid-row: 1 ;
-    grid-column: 1 / -1;
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: white;
+    position: sticky;
+    z-index: 1000;
+    /* Makes sure it doesn’t blend with background. high number ensures its always on top */
+    top: 0px;
+    grid-row: 1 / 2;
+    grid-column: 1 / 3;
     border: 1px solid blue;
+
 }
 
-#projectsPane{
+/* #appTitle{
+    grid-row: 1 / 2 ;
+    grid-column: 1 / -1;
+    border: 1px solid blue;  
+} */
+
+#headings {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    /* grid-row: 3 / 4 ;
+    grid-column: 1 / -1; */
+    border: 1px dotted grey;
+}
+
+#projectHeadingsAndAddButton {
+    grid-column: 1 / 2;
+    display: flex;
+    justify-content: space-between;
+}
+
+#todoListHeadingsAndAddButton {
+    grid-column: 2;
+    display: flex;
+    justify-content: space-between;
+}
+
+#projectHeadings,
+#todoListHeadings {
+    align-content: end;
+}
+
+
+#projectsPane {
     grid-row: 2 / 3;
     grid-column: 1 / 2;
     border: 1px solid blue;
 }
 
-#todoListPane{
+#todoListPaneContainer {
+    position: relative;
     grid-row: 2 / 3;
-    grid-column: 2 / 3;
+    grid-column: 2;
     border: 1px solid blue;
+    background-color: aqua;
 }
 
-footer{
-    grid-row: 4;
+footer {
+    grid-row: 3;
     grid-column: 1 / -1;
     border: 1px solid blue;
+    position: sticky;
+    z-index: 1000;
+    bottom: 0px;
+    background-color: white;
 }
 
+.addNoteButton {
+    position: sticky;
+    top: 0;
+    margin-left: auto;
+    display: block;
+}
 
-.quickDisplayDiv
- {
+/* .todoPreviewDiv {
     display: flex;
     justify-content: space-between;
-    border: 1px solid red;
-    background-color: aqua;
-    margin-bottom: 5px;
-    margin-top: 5px;
+    align-items: center;
+    background-color: #fff5ef;
+    border-radius: 12px;
+    padding: 1rem;
+    margin: 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+} */
+
+.todoPreviewDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff5ef;
+    border-radius: 12px;
+    padding: 1rem;
+    margin: -10px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(215, 168, 110, 0.3);
+    transition:
+        box-shadow 0.3s ease,
+        transform 0.25s ease,
+        border-color 0.3s ease;
 }
 
-.quickDetailsDiv{
+.todoPreviewDiv:hover {
+    transform: translateY(-4px) scale(1.015); /* subtle lift */
+    box-shadow: 0 8px 20px rgba(60, 35, 20, 0.35); /* deeper + richer shadow */
+    border-color: rgba(215, 168, 110, 0.6); /* stronger outline */
+  }
+  
+
+/* .quickDisplayDiv:hover {
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+} */
+
+.quickDetailsDiv {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #4e342e;
+    /* Soft espresso brown */
+}
+
+.quickActionDiv {
+    display: flex;
+    gap: 10px;
+}
+
+/* .quickDispButton {
+    background-color: transparent; 
+    border: none;
+    border-radius: 50%;
+    padding: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  } */
+
+.quickDispButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    padding: 8px;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(60, 35, 20, 0.25);
+}
+
+
+
+.quickDispButtonDiv {
+    width: 50px;
+    height: 30px;
+}
+
+/* .quickDispButton:hover {
+    transform: scale(1.15) rotate(-3deg);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  } */
+
+.quickDispButton:hover {
+    transform: scale(1.18) rotate(-2deg);
+    box-shadow: 0 6px 14px rgba(60, 35, 20, 0.35);
+}
+
+
+.quickDispButton img {
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+    /* Prevent clicks on image instead of button */
+}
+
+.quickDispButton:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(215, 168, 110, 0.4);
+}
+
+
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #bc8655;
+    /* Elegant checkbox color */
+}
+
+
+
+input[type="checkbox"]:checked+label {
+    text-decoration: line-through;
+    color: #999;
+}
+
+/* .quickDetailsDiv{
     display: grid;
     grid-template-columns: 40px repeat(2, 150px);
     align-content: center;
@@ -61,6 +230,25 @@ footer{
     display: grid;
     grid-template-columns: repeat(3, 85px);
     align-content: center;
+}
+
+.quickDispButton{
+    width: 50px;
+    height: 30px;
+    font-size: 1rem;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    align-self: center;
+} */
+
+input[type="checkbox"]:checked+label {
+    text-decoration: line-through;
+    /* ✅ Adds strikethrough when checked */
+    color: gray;
+    /* Optional: Dim the text color */
 }
 
 button {
@@ -73,25 +261,8 @@ button {
     /* background: none; */
 }
 
-.quickDispButton{
-    width: 50px;
-    height: 30px;
-    font-size: 1rem;
-}
-
-.resetButton,.confirmButton {
-    width: 5rem; 
+.resetButton,
+.confirmButton {
+    width: 5rem;
     font-size: 12px;
 }
-
-input[type="checkbox"] {
-    width: 20px; /* ✅ Adjust width */
-    height: 20px; /* ✅ Adjust height */
-    align-self: center;
-}
-
-input[type="checkbox"]:checked + label {
-    text-decoration: line-through; /* ✅ Adds strikethrough when checked */
-    color: gray; /* Optional: Dim the text color */
-}
-

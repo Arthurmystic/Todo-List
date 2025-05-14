@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href=""> -->
+    <style>
+        .one,
+        .two {
+            width: 50px;
+            height: 50px;
+            border: 2px solid red;
+            margin: 10px;
+            padding: 20px;
+        }
+
+        .visible {
+            display: block;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="buttonDiv">
+        <button id="01">01</button>
+        <button id="02">02</button>
+        <button id="03">03</button>
+        <button id="04">04</button>
+    </div>
+    <div id="container">
+
+    </div>
+    <!-- <div class="one"> THIS IS DIV ONE</div>
+    <div class="two">THIS IS DIV TWO</div>
+    <div class="three"> THIS IS DIV ONE</div>
+    <div class="four">THIS IS DIV TWO</div> -->
+
+
+    <script>
+
+        const oneDiv = document.querySelector(".one");
+        const twoDiv = document.querySelector(".two");
+        const buttonDiv = document.querySelector("#buttonDiv");
+        const container = document.querySelector("#container");
+        const divDefault = document.createElement("div");
+        divDefault.style.cssText = `width:65px; height:65px; border: 2px solid red`
+
+        container.append(divDefault);
+
+        const divMat = [];
+
+        // const divMaker = function(text, id){
+        //     const div = document.createElement("div");
+        //     div.id= id;
+        //     div.innerText = text;
+        //     div.style.display = "none";
+        // }
+
+        class DivMaker {
+            // constructor(text, id) {
+            //     this.text = text;
+            //     this.id = id;
+            // }
+            static createDiv(text, id, btn) {
+                const div1 = document.createElement("div");
+                // div.id = this.id;
+                // div.innerText = this.text;
+                div1.id = id;
+                div1.innerText = text;
+                div1.style.cssText = `
+                                display: block;
+                                width: 65px;
+                                height: 65px;
+                                border: 2px solid red;
+                                padding: 10px;
+                                margin: 5px;
+                                            `
+                const div = {
+                    divObj: div1,
+                    divButton: btn
+                };
+                divMat.push(div);
+                container.append(div1); // used in method 2;
+                return div;
+            }
+        }
+
+        // const one = new DivMaker("This is Div ONE", "one");
+        const divOne = DivMaker.createDiv("This is Div ONE", "one", "01");
+        const divTwo = DivMaker.createDiv("This is Div TWO", "Two", "02");
+        const divThree = DivMaker.createDiv("This is Div THREE", "Three", "03");
+        const divFive = DivMaker.createDiv("This is Div FOUR", "Four", "04");
+
+        const values = "one";
+        // if (val == "one") {
+        //     oneDiv.style.display = "none";
+        // } else {
+        //     twoDiv.style.display = "none";
+        // }
+
+        function changeDisp(div) {
+            div.style.display
+        }
+
+        function dispMtd1(val) {
+            const idx = divMat.findIndex(currDiv => currDiv.divButton == val);
+            const newDiv = divMat[idx].divObj;
+            container.replaceChildren(newDiv);
+        }
+
+        function dispMtd2(val){
+            const idx = divMat.findIndex(currDiv => currDiv.divButton == val);
+            const selectedDiv = divMat[idx];
+            divMat.forEach(currDiv => currDiv.divObj.style.display = (currDiv==selectedDiv)?"block":"none");
+        }
+
+        buttonDiv.addEventListener("click", (e) => {
+            const val = e.target.id;
+            dispMtd2(val)
+        })
+
+
+
+    </script>
+</body>
+
+
+
+
+</html>

@@ -2,7 +2,18 @@
 
 const domElements = (function () {
     
-    const createElement = (elemType, state) => {
+    const projectButtonDiv = document.querySelector("#projectButtonDiv");
+    const todoListButton = document.querySelector("#todoListButton");
+    const addProjectButton = document.querySelector("#addProjectButton");
+    const projectsPane = document.querySelector("#projectsPane");
+    const todoListPaneContainer = document.querySelector("#todoListPaneContainer");
+
+    // const todoListPane = document.querySelector("#todoListPane");
+
+    
+    const img = () => document.createElement("img");  
+
+    const buildElement = (elemType, state) => {
         const element = document.createElement(elemType);
         element.setAttribute("id", state.id);
         if (state.name) element.setAttribute("name", state.name);
@@ -56,7 +67,10 @@ const domElements = (function () {
         selectOptions.appendChild(option3);
         return { selectOptions }
     }
-    return { createElement, createLabel, createFieldset, createTextArea, createPrioritySelector };
+    return { buildElement, createLabel, createFieldset, createTextArea, img,
+        createPrioritySelector, projectButtonDiv, todoListButton, addProjectButton,
+        projectsPane, todoListPaneContainer
+    };
 
 })();
 

@@ -7,7 +7,7 @@ function retrieveAndDispDialog(dataSetAttr,displayDialogStore) {
 
     document.body.appendChild(displayDialogArray[0]);
     displayDialogArray[0].showModal();
-}
+}  
 
 function retrieveAndDeleteDialog(dataSetAttr, dialogStore) {
     const index = dialogStore.findIndex(arr => arr.dataset.ref == dataSetAttr); // find index of dialogstore array whose data-ref == dataSetAttr
@@ -21,6 +21,7 @@ function retrieveAndEditDialog(dataSetAttr, dialogCheckbox, dialogDueDateDiv, ed
     const editableDialog = editableDialogStore[index1];
     const displayDialog = displayDialogStore[index2];
 
+    console.log (editableDialogStore);
     editableDialog.showModal(); // show editable dialog for editing.
 
     const confirmButton = editableDialog.querySelector("form .submitButton"); // select form > submmitButton
@@ -37,7 +38,7 @@ function retrieveAndEditDialog(dataSetAttr, dialogCheckbox, dialogDueDateDiv, ed
 
         // update values in the quickdisplaydiv
         dialogCheckbox.label.innerText = updatedTitle;
-        dialogDueDateDiv.innerText = updatedDueDate;
+        dialogDueDateDiv.innerText = `Due date: ${updatedDueDate}`;
 
         // update values in the displayDialog
         updatedStoreFormDiv.innerText = `

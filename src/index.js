@@ -1,32 +1,45 @@
 // index.js
 
 import "./styles.css";
-// import { domElements }  from "./DOM-Elements";
-// import { storeUserInput } from "./operations.js"
-// import { basicButtonStyles } from "./js-styles.js";
-
+import { domElements }  from "./DOM-Elements";
 import { createButton } from "./createFormElements.js";
-import { createDialogs, storeEditableDialog, storeDisplayDialog } from "./createDialogs.js";
+import { createDialogs, storeDisplayDialog, createProjectHeadingDivAndDialog } from "./createDialogs.js";
+import { createProjectDivOnAddBtn } from "./createProject.js"
 
-const addTodoButton = createButton("button", "+", { type: "button", elemClass: "addButton", id: crypto.randomUUID() });
-document.body.appendChild(addTodoButton);   
+// const { projectButton, todoListButton, addProjectButton, projectsPane, todoListPaneContainer } = domElements; 
 
-const displayTodo = createButton("button", "DISP", { type: "button", elemClass: "displayButton", id: crypto.randomUUID() });
-document.body.appendChild(displayTodo);
+const addNoteButton = createButton("button", "+", { type: "button", elemClass: "addNoteButton", id: crypto.randomUUID() });
+todoListButton.appendChild(addNoteButton);   
 
-addTodoButton.addEventListener("click",()=>{
-    const { editableForm, editableDialog } = createDialogs();
-    document.body.appendChild(editableDialog); //
-    // editableForm.reset();
-    editableDialog.showModal();
-});
+// const displayTodo = createButton("button", "DISP", { type: "button", elemClass: "displayButton", id: crypto.randomUUID() });
+// document.body.appendChild(displayTodo); 
 
-displayTodo.addEventListener("click", ()=>{
-    const digs = storeDisplayDialog();
-    const digs2 = digs[digs.length-1];
-    // console.log("digsdigsdigs: ", digs2);
-    document.body.appendChild(digs2);
-    digs2.showModal();  
-} )
+// addNoteButton.addEventListener("click",()=>{
+//     const { editableDialog } = createDialogs();
+//     document.body.appendChild(editableDialog); //
+//     // editableForm.reset();
+//     editableDialog.showModal();
+// });
 
- 
+// displayTodo.addEventListener("click", ()=>{
+//     const digs = storeDisplayDialog();
+//     const digs2 = digs[digs.length-1];
+//     // console.log("digsdigsdigs: ", digs2);
+//     document.body.appendChild(digs2);
+//     digs2.showModal();  
+// } )
+
+addProjectButton.addEventListener("click", () => {
+
+    // const { createProjectDivOnAddBtn } =
+    const projectHeadingDialog = createProjectHeadingDivAndDialog(); 
+    document.body.appendChild(projectHeadingDialog);
+    projectHeadingDialog.showModal();
+    const { projectDiv } = createProjectDivOnAddBtn();
+    // todoListPaneContainer.appendChild(projectDiv);
+    todoListPaneContainer.replaceChildren(projectDiv);
+    
+    // const tLPContainer = projDiv.todoListPaneContainerDiv
+
+})
+
