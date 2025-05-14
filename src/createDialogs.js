@@ -1,45 +1,25 @@
 // createDialogs.js
 
-// on add task => retrieve tLP associated with the task, by searching in the 
-// array
-// best thing is to tie an add button to 
-
-
-import { domElements } from "./DOM-Elements.js";
-import { createFormFields, editImgDiv, delImgDiv } from "./createFormElements.js";
+import { createFormFields } from "./createFormElements.js";
 import { retrieveAndDispDialog, retrieveAndDeleteDialog, retrieveAndEditDialog } from "./editDialogs.js";
-
-// const { buildElement, todoListPane } = domElements;
-const { buildElement } = domElements;
+import { storeData } from "./universalFunctions.js";
 
 let inEditingMode = false; // not in editing mode by default notEditing
 
-
-// Stores data in an array
-function storeData() {
-    const storageArr = [];
-    return function dataStorage(data) {
-        if (data !== undefined && !storageArr.includes(data)) storageArr.push(data); // store data if it is not already inside the storageArr
-        return storageArr;
-    }
-};
-
 const storeEditableDialog = storeData();
 const storeDisplayDialog = storeData();
-const storeTodoListPanes = storeData(); // stores the todoListPane divs
 
 // Displays summary of notes on screen with Edit, Delete and View buttons attached.
 function storeQuickDisplayDiv(todoListPane, checkbox, title, notes, priorityList, duedate, dataSetAttr) {
     // notes, priorityList are indirectly used in retrieveandedit in the showModal(). deleting them here causes an error when that functions is called and confirm button pressed
 
-    const { todoPreviewDiv, quickDetailsDiv, quickActionDiv, duedateDiv, viewButton, editButton, deleteButton, addNoteButtonToTodoListPane } = createFormFields();
+    const { todoPreviewDiv, quickDetailsDiv, quickActionDiv, duedateDiv, viewButton,
+        editButton, deleteButton, addNoteButtonToTodoListPane } = createFormFields();
 
     todoPreviewDiv.dataset.ref = dataSetAttr; // assigning data-ref to editable dialog.
 
     checkbox.label.innerText = `${title}`;
     duedateDiv.innerText = `Due date: ${duedate}`;
-
-    // todoListPane.appendChild(addNoteButtonToTodoListPane);
 
     quickDetailsDiv.appendChild(checkbox.element);
     quickDetailsDiv.appendChild(checkbox.label);
@@ -63,18 +43,17 @@ function storeQuickDisplayDiv(todoListPane, checkbox, title, notes, priorityList
         todoListPane.removeChild(todoPreviewDiv);
     });
     editButton.addEventListener("click", () => {
-        retrieveAndEditDialog(dataSetAttr, checkbox, duedateDiv, storeEditableDialog(), storeDisplayDialog());
+        retrieveAndEditDialog(dataSetAttr, checkbox, duedateDiv, 
+            storeEditableDialog(), storeDisplayDialog());
+
         inEditingMode = true; // in editing mode
     });
 
     addNoteButtonToTodoListPane.addEventListener("click", () => {
         const { editableDialog } = createDialogs();
         document.body.appendChild(editableDialog); //
-        // editableForm.reset();
         editableDialog.showModal();
     })
-
-    storeTodoListPanes.push(todoListPane);
 }
 
 // CREATE EDITABLE DIALOGBOX
@@ -116,7 +95,7 @@ function createDialogs(todoListPane) {
     confirmButton.addEventListener("click", (e) => {
         e.preventDefault();
         if (!inEditingMode) { // check if in editing mode or not. only call storeFormInput if not in editing mode
-            storeFormInput(editableForm, editableDialog, dataAttr)
+            storeFormInput(editableForm, editableDialog, dataAttr, todoListPane)
         } else { // in editing mode
             inEditingMode = false; // switch back to non-editing mode
         }
@@ -125,7 +104,7 @@ function createDialogs(todoListPane) {
     return { editableForm, editableDialog };
 };
 
-function storeFormInput(todoEditableForm, todoEditableDialog, dataSetAttr) {
+function storeFormInput(todoEditableForm, todoEditableDialog, dataSetAttr, todoListPane) {
     const { checkbox, displayDialog, displayForm, storeFormDiv } = createFormFields();
     displayDialog.dataset.ref = dataSetAttr; // assigning data-ref attribute
 
@@ -145,7 +124,8 @@ function storeFormInput(todoEditableForm, todoEditableDialog, dataSetAttr) {
 
     storeEditableDialog(todoEditableDialog);
     storeDisplayDialog(displayDialog);
-    storeQuickDisplayDiv(todoListPane, checkbox, titleValue, notesValue, priorityListValue, dueDateValue, dataSetAttr);
+    storeQuickDisplayDiv(todoListPane, checkbox, titleValue, notesValue, 
+        priorityListValue, dueDateValue, dataSetAttr);
 };
 
 function createProjectHeadingDivAndDialog() {
@@ -153,7 +133,6 @@ function createProjectHeadingDivAndDialog() {
     const saveProjectButton = button("button", "Save", "projectTitleButton");
     const cancelProjectButton = button("button", "Cancel", "projectTitleButton");
 
-    // console.log(projectTitle.label)
     projectTitleForm.appendChild(projectTitle.label);
     projectTitleForm.appendChild(projectTitle.element);
     projectTitleForm.appendChild(cancelProjectButton);
@@ -162,26 +141,26 @@ function createProjectHeadingDivAndDialog() {
 
     projectTitleForm.addEventListener("submit", (event) => { // handles if enter button is pressed
         event.preventDefault();
-        const projectTitle = projectTitleForm.elements["project-Name"].value;
-        projectTitleDiv.innerText = projectTitle;
+        const projectName = projectTitleForm.elements["project-Name"].value;
+        projectTitleDiv.innerText = projectName;
         projectsPane.appendChild(projectTitleDiv);
-        projectHeadingDialog.close()
+        projectHeadingDialog.close();
     });
 
     saveProjectButton.addEventListener("click", () => {
-        const projectTitle = projectTitleForm.elements["project-Name"].value;
-        projectTitleDiv.innerText = projectTitle;
+        const projectName = projectTitleForm.elements["project-Name"].value;
+        projectTitleDiv.innerText = projectName;
         projectsPane.appendChild(projectTitleDiv);
-        projectHeadingDialog.close() 
-    })
+        projectHeadingDialog.close() ;
+    });
 
     cancelProjectButton.addEventListener("click", () => {
-        projectHeadingDialog.close()
-    })
+        projectHeadingDialog.close();
+    });
 
-    return projectHeadingDialog
-}
+    return { projectHeadingDialog, projectTitleDiv };
+};
 
-
-export { createDialogs, storeFormInput, storeEditableDialog, storeDisplayDialog, createProjectHeadingDivAndDialog };
+export { createDialogs, storeFormInput, storeEditableDialog, storeDisplayDialog, 
+    createProjectHeadingDivAndDialog };
 

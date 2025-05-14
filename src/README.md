@@ -84,3 +84,30 @@
 // const viewButton = button("", "View", 'quickDispButton');
     // const editButton = button("Edit", 'quickDispButton');
     // const deleteButton = button("DEL", 'quickDispButton');
+    
+    
+    // function changeDisplayedProject(e){
+//     const val = e.target.dataset.ref;
+//     const idx = storeProjectInfo().findIndex(projInfo => projInfo.dataRef == val);
+//     const currProjectDiv = storeProjectInfo()[idx].div;
+//     return currProjectDiv;
+
+// }
+
+// const displayTodo = createButton("button", "DISP", { type: "button", elemClass: "displayButton", id: crypto.randomUUID() });
+// document.body.appendChild(displayTodo); 
+
+// addNoteButton.addEventListener("click",()=>{
+//     const { editableDialog } = createDialogs();
+//     document.body.appendChild(editableDialog); //
+//     // editableForm.reset();
+//     editableDialog.showModal();
+// });
+
+// displayTodo.addEventListener("click", ()=>{
+//     const digs = storeDisplayDialog();
+//     const digs2 = digs[digs.length-1];
+//     // console.log("digsdigsdigs: ", digs2);
+//     document.body.appendChild(digs2);
+//     digs2.showModal();  
+// } )

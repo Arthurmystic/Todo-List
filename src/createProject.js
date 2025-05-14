@@ -1,114 +1,53 @@
-import { createFormFields } from "./createFormElements";
-import { domElements }  from "./DOM-Elements";
+import { createFormFields } from "./createFormElements.js";
+import { createDialogs } from "./createDialogs.js";
+import { storeData } from "./universalFunctions.js";
 
-const { todoListPane } = createFormFields();
-const { addProjectButton, projectsPane } = domElements
+const storeProjectInfo = storeData(); // store project divs
 
+(function defaultProject() {
+    const { projectTitleDiv, projectDiv, todoListPane, todoListPaneContainerDiv, 
+        addNoteButtonToTodoListPane, button } = createFormFields();
+    projectTitleDiv.innerText = "Default Project";
+    projectsPane.appendChild(projectTitleDiv);
+    generateProject(todoListPane, projectDiv, projectTitleDiv, todoListPaneContainerDiv, addNoteButtonToTodoListPane)
+    todoListPaneContainer.replaceChildren(projectDiv);
+    return { projectTitleDiv }; 
+})();
 
-// on + project create todoPreviewContainer and initialise it with
-// empty div saying 'click add task to add button' basically, if 
-// attach empty 
-
-// create obj 
-
-
-// add todoListPane each time its created to default todoPreviewContainer
-
-// const { buildElement } = domElements;
-
-const projectDivArr = [];
-const todoListPaneArr = [];
-
-// on + project, call create rpoject. prompt to assign it a name. 
-// extract to todoListPaneContainerDiv from it. 
-// on + note, add note, todoListPane to todoListPaneContainerDiv and 
-// turn its display on. 
-
-// addProjectButton.addEventLister("click", () => {
-//     console.log ('now runnign')
-//     createProjectDivOnAddBtn();
-//     // const tLPContainer = projDiv.todoListPaneContainerDiv
-
-// })
-
-function createProjectDivOnAddBtn() {
-    console.log ('now runnign');
+function generateProject(todoListPane, projectDiv, projectTitleDiv, todoListPaneContainerDiv, addNoteButtonToTodoListPane) {
+    
     const dataAttr = crypto.randomUUID();
-    const { projectDiv } = createFormFields();
-    
-    
-    const { todoListPaneContainerDiv, addNoteButtonToTodoListPane } = createFormFields();
-    
     projectDiv.dataset.ref = dataAttr; // assigning data-ref to projectDiv
-
+    projectTitleDiv.dataset.ref = dataAttr;
     todoListPaneContainerDiv.dataset.ref = dataAttr;
-    console.log(projectDiv);
 
-    todoListPaneContainerDiv.appendChild(addNoteButtonToTodoListPane);
-    todoListPaneContainerDiv.appendChild(todoListPane)
-    
+    console.log(".... genereting 1", addNoteButtonToTodoListPane)
+    projectDiv.appendChild(addNoteButtonToTodoListPane);
+    projectDiv.appendChild(todoListPane);
+
     addNoteButtonToTodoListPane.addEventListener("click", () => {
-        
         const { editableDialog } = createDialogs(todoListPane);
-
-        document.body.appendChild(editableDialog); //
-        // editableForm.reset();
+        document.body.appendChild(editableDialog);
         editableDialog.showModal();
-    })
+    });
 
-    projectDiv.appendChild(todoListPaneContainerDiv);
-    // projectDiv.innerText = 'am div'
-    // projectsPane.appendChild(projectDiv);
-
-    // projectDiv = dataAttr;
-    const projectDivObj = {
+    const projectInfo = {
         div: projectDiv,
-        dataSet: dataAttr,
-    }
+        divName: projectTitleDiv,
+        dataRef: dataAttr,
+    };
 
-    projectDivArr.push(projectDivObj);
-
-    return { projectDivArr, projectDiv };
+    storeProjectInfo(projectInfo)
 }
 
-function assignTodoListPaneToProjectDiv(e) {
+// function createProjectDivOnAddBtn() {
+//     const { projectHeadingDialog, projectTitleDiv } = createProjectHeadingDivAndDialog();
+//     const { todoListPane, projectDiv, todoListPaneContainerDiv, addNoteButtonToTodoListPane } = createFormFields();
 
-}
+//     generateProject(todoListPane, projectDiv, projectTitleDiv, todoListPaneContainerDiv, addNoteButtonToTodoListPane)
 
-// class DivMaker {
-//     static createDiv(text, id, btn, divClass, todoListPane) {
-//         const div1 = buildElement("div", { class: divClass, id: crypto.randomUUID() });
-//         const dataRef = crypto.randomUUID();
-
-//         todoListPane.dataset = dataRef;
-
-//         // div.innerText = this.text;
-//         div1.id = id;
-//         div1.innerText = text;
-//         div1.style.cssText = `
-//                         display: block;
-//                         width: 65px;
-//                         height: 65px;
-//                         border: 2px solid red;
-//                         padding: 10px;
-//                         margin: 5px;
-//                                     `
-//         const div = {
-//             divObj: div1,
-//             divButton: btn,
-//             divAttr: dataRef,
-//         };
-//         divMat.push(div);
-//         container.append(div1); // used in method 2;
-//         return div;
-//     }
+//     return { storeProjectInfo, projectDiv, projectHeadingDialog, projectTitleDiv };
 // }
 
-// const one = new DivMaker("This is Div ONE", "one");
-// const divOne = DivMaker.createDiv("This is Div ONE", "one", "01");
-// const divTwo = DivMaker.createDiv("This is Div TWO", "Two", "02");
-// const divThree = DivMaker.createDiv("This is Div THREE", "Three", "03");
-// const divFive = DivMaker.createDiv("This is Div FOUR", "Four", "04");
 
-
-export { createProjectDivOnAddBtn }
+export { storeProjectInfo, generateProject }
