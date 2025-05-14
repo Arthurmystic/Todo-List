@@ -10,3 +10,23 @@ function storeData() {
 };
 
 export { storeData }
+
+
+// const val = e.target.dataset.ref;
+// const idx = storeProjectInfo().findIndex(projInfo => projInfo.dataRef == val);
+// const currProjectDiv = storeProjectInfo()[idx].div;
+// const addTodoButton = storeProjectInfo()[idx].button;
+// todoListPaneContainer.replaceChildren(currProjectDiv);
+// todoListButton.replaceChildren(addTodoButton);
+
+
+// (function defaultProject() {
+//     const isDefault = true;
+//     const { projectTitleDiv, projectDiv, todoListPane, todoListPaneContainerDiv, 
+//         addNoteButtonToTodoListPane, button } = createFormFields();
+//     projectTitleDiv.innerText = "Default Project";
+//     projectsPane.appendChild(projectTitleDiv);
+//     generateProject() // (todoListPane, projectDiv, projectTitleDiv, todoListPaneContainerDiv, addNoteButtonToTodoListPane)
+//     todoListPaneContainer.replaceChildren(projectDiv);
+//     return { projectTitleDiv }; 
+// })();

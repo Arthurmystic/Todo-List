@@ -111,3 +111,13 @@
 //     document.body.appendChild(digs2);
 //     digs2.showModal();  
 // } )
+
+
+// function createProjectDivOnAddBtn() {
+//     const { projectHeadingDialog, projectTitleDiv } = createProjectHeadingDivAndDialog();
+//     const { todoListPane, projectDiv, todoListPaneContainerDiv, addNoteButtonToTodoListPane } = createFormFields();
+
+//     generateProject(todoListPane, projectDiv, projectTitleDiv, todoListPaneContainerDiv, addNoteButtonToTodoListPane)
+
+//     return { storeProjectInfo, projectDiv, projectHeadingDialog, projectTitleDiv };
+// }

@@ -48,12 +48,6 @@ function storeQuickDisplayDiv(todoListPane, checkbox, title, notes, priorityList
 
         inEditingMode = true; // in editing mode
     });
-
-    addNoteButtonToTodoListPane.addEventListener("click", () => {
-        const { editableDialog } = createDialogs();
-        document.body.appendChild(editableDialog); //
-        editableDialog.showModal();
-    })
 }
 
 // CREATE EDITABLE DIALOGBOX

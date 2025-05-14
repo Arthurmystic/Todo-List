@@ -24,5 +24,15 @@ projectsPane.addEventListener("click", (e) => {
         const idx = storeProjectInfo().findIndex(projInfo => projInfo.dataRef == val);
         const currProjectDiv = storeProjectInfo()[idx].div;
         todoListPaneContainer.replaceChildren(currProjectDiv);
+
+        const addTodoButton = storeProjectInfo()[idx].btn;
+        todoListButton.replaceChildren(addTodoButton);
+
     };
 })
+// const val = e.target.dataset.ref;
+// const idx = storeProjectInfo().findIndex(projInfo => projInfo.dataRef == val);
+// const currProjectDiv = storeProjectInfo()[idx].div;
+// const addTodoButton = storeProjectInfo()[idx].button;
+// todoListPaneContainer.replaceChildren(currProjectDiv);
+// todoListButton.replaceChildren(addTodoButton);

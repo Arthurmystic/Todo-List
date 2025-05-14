@@ -102,12 +102,13 @@ const createFormFields = function () {
     const projectTitleForm = buildElement("form", { name: "projectTitleForm", id: crypto.randomUUID() }).element;
     const projectTitleDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "projectTitleDiv" }).element;
     const projectDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "projectDiv" }).element;
+    const addTodoBtnDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "addTodoBtnDiv" }).element;
 
     return {
         checkbox, todoTitle, todoNotes, dueDate, priority, closeButton, resetButton, confirmButton, button, editableForm,
         editableDialog, displayForm, displayDialog, todoPreviewDiv, quickDetailsDiv, quickActionDiv, duedateDiv, viewButton, 
         editButton, deleteButton, storeFormDiv, addNoteButtonToTodoListPane, projectDiv, projectTitleForm, projectTitleDiv,
-        todoFieldset, todoListPaneContainerDiv, todoListPane, projectHeadingDialog, projectTitle
+        todoFieldset, todoListPaneContainerDiv, todoListPane, projectHeadingDialog, projectTitle, addTodoBtnDiv
     };
 };
 

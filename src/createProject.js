@@ -21,8 +21,9 @@ function generateProject(todoListPane, projectDiv, projectTitleDiv, todoListPane
     projectTitleDiv.dataset.ref = dataAttr;
     todoListPaneContainerDiv.dataset.ref = dataAttr;
 
-    console.log(".... genereting 1", addNoteButtonToTodoListPane)
-    projectDiv.appendChild(addNoteButtonToTodoListPane);
+    console.log(".... genereting 1", todoListButton)
+    // projectDiv.appendChild(addNoteButtonToTodoListPane);
+    todoListButton.replaceChildren(addNoteButtonToTodoListPane);
     projectDiv.appendChild(todoListPane);
 
     addNoteButtonToTodoListPane.addEventListener("click", () => {
@@ -35,19 +36,10 @@ function generateProject(todoListPane, projectDiv, projectTitleDiv, todoListPane
         div: projectDiv,
         divName: projectTitleDiv,
         dataRef: dataAttr,
+        btn: addNoteButtonToTodoListPane,
     };
 
     storeProjectInfo(projectInfo)
 }
-
-// function createProjectDivOnAddBtn() {
-//     const { projectHeadingDialog, projectTitleDiv } = createProjectHeadingDivAndDialog();
-//     const { todoListPane, projectDiv, todoListPaneContainerDiv, addNoteButtonToTodoListPane } = createFormFields();
-
-//     generateProject(todoListPane, projectDiv, projectTitleDiv, todoListPaneContainerDiv, addNoteButtonToTodoListPane)
-
-//     return { storeProjectInfo, projectDiv, projectHeadingDialog, projectTitleDiv };
-// }
-
 
 export { storeProjectInfo, generateProject }
