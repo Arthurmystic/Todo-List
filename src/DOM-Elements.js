@@ -7,9 +7,6 @@ const domElements = (function () {
     const addProjectButton = document.querySelector("#addProjectButton");
     const projectsPane = document.querySelector("#projectsPane");
     const todoListPaneContainer = document.querySelector("#todoListPaneContainer");
-
-    // const todoListPane = document.querySelector("#todoListPane");
-
     
     const img = () => document.createElement("img");  
 

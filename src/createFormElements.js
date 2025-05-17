@@ -39,7 +39,7 @@ function createPriorityOptions(state) {  // using composition to create the elem
 }
 
 // Adding icon to button
-function addIcon(iconButton, imgIcon, ImgAltText) {
+function addIcon(iconButton, imgIcon, ImgAltText, btnClass) {
     const image = img();
     image.src = imgIcon;
     image.altText = ImgAltText;
@@ -48,6 +48,7 @@ function addIcon(iconButton, imgIcon, ImgAltText) {
                         height: 20px;
                         `
     iconButton.appendChild(image);
+    iconButton.setAttribute("class", btnClass);
     iconButton.style.cssText = `
                             display: flex;
                             align-items: center;
@@ -59,13 +60,13 @@ function addIcon(iconButton, imgIcon, ImgAltText) {
 const createFormFields = function () {
     // generic
     const button = (buttonType, text, buttonClass) => createButton("button", text, { type: buttonType, elemClass: buttonClass, id: crypto.randomUUID() });
-    const rawButton = () => createButton("button", undefined, { type: "button", elemClass: "quickDispButton", id: crypto.randomUUID() });
+    const rawButton = () => createButton("button", undefined, { type: "button", id: crypto.randomUUID() });
     
     // TODO LIST PANE RELATED
     //General
     const todoListPaneContainerDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "todoListPaneContainer" }).element;
     const todoListPane = buildElement("div", { id: crypto.randomUUID(), elemClass: "todoListPane" }).element;
-    const addNoteButtonToTodoListPane = createButton("button", "+", { type: "button", elemClass: "addNoteButton", id: crypto.randomUUID() });
+    const addNoteButtonToTodoListPane = createButton("button", "+ New Task", { type: "button", elemClass: "addNoteButton", id: crypto.randomUUID() });
 
     // Editable dialog related
     const editableDialog = buildElement("dialog", { id: crypto.randomUUID() }).element;
@@ -92,9 +93,9 @@ const createFormFields = function () {
     const todoPreviewDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "todoPreviewDiv" }).element;
     const quickDetailsDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "quickDetailsDiv" }).element;
     const quickActionDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "quickActionDiv" }).element;
-    const editButton = addIcon(rawButton(), editIcon, "Edit");
-    const deleteButton = addIcon(rawButton(), deleteIcon, "Delete");
-    const viewButton = addIcon(rawButton(), viewIcon, "View"); 
+    const editButton = addIcon(rawButton(), editIcon, "Edit", "quickDispButton");
+    const deleteButton = addIcon(rawButton(), deleteIcon, "Delete", "quickDispButton");
+    const viewButton = addIcon(rawButton(), viewIcon, "View", "quickDispButton"); 
 
     // PROJECT PANE RELATED
     const projectHeadingDialog = buildElement("dialog", { id: crypto.randomUUID() }).element;
@@ -103,19 +104,16 @@ const createFormFields = function () {
     const projectTitleDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "projectTitleDiv" }).element;
     const projectDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "projectDiv" }).element;
     const addTodoBtnDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "addTodoBtnDiv" }).element;
+    const editProjectNameBtn = addIcon(rawButton(), editIcon, "Edit", "projectBtn");
+    const delProjectBtn = addIcon(rawButton(), deleteIcon, "Delete", "projectBtn");
 
     return {
         checkbox, todoTitle, todoNotes, dueDate, priority, closeButton, resetButton, confirmButton, button, editableForm,
         editableDialog, displayForm, displayDialog, todoPreviewDiv, quickDetailsDiv, quickActionDiv, duedateDiv, viewButton, 
         editButton, deleteButton, storeFormDiv, addNoteButtonToTodoListPane, projectDiv, projectTitleForm, projectTitleDiv,
-        todoFieldset, todoListPaneContainerDiv, todoListPane, projectHeadingDialog, projectTitle, addTodoBtnDiv
+        todoFieldset, todoListPaneContainerDiv, todoListPane, projectHeadingDialog, projectTitle, addTodoBtnDiv, editProjectNameBtn,
+        delProjectBtn
     };
 };
 
 export { createButton, createFormFields };
-
-
-
-
-
-

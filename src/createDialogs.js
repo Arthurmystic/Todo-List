@@ -43,7 +43,7 @@ function storeQuickDisplayDiv(todoListPane, checkbox, title, notes, priorityList
         todoListPane.removeChild(todoPreviewDiv);
     });
     editButton.addEventListener("click", () => {
-        retrieveAndEditDialog(dataSetAttr, checkbox, duedateDiv, 
+        retrieveAndEditDialog(dataSetAttr, checkbox, duedateDiv,
             storeEditableDialog(), storeDisplayDialog());
 
         inEditingMode = true; // in editing mode
@@ -80,9 +80,10 @@ function createDialogs(todoListPane) {
     editableForm.appendChild(resetButton);
     editableForm.appendChild(confirmButton);
 
-    todoFieldset.appendChild(editableForm);
+    // todoFieldset.appendChild(editableForm);
+    // editableDialog.appendChild(todoFieldset);
 
-    editableDialog.appendChild(todoFieldset);
+    editableDialog.appendChild(editableForm);
 
     // Attach event listeners 
     closeButton.addEventListener("click", () => editableDialog.close());
@@ -94,7 +95,21 @@ function createDialogs(todoListPane) {
             inEditingMode = false; // switch back to non-editing mode
         }
         editableDialog.close();
+        // editableDialog.remove(); // removing dialog from document after capturing its information.
     });
+
+    // editableForm.addEventListener("submit", (e)=>{
+    //     e.preventDefault();
+    //     if (!inEditingMode) { // check if in editing mode or not. only call storeFormInput if not in editing mode
+    //         storeFormInput(editableForm, editableDialog, dataAttr, todoListPane)
+    //     } else { // in editing mode
+    //         inEditingMode = false; // switch back to non-editing mode
+    //     }
+    //     editableDialog.close();
+    //     // editableDialog.remove(); // removing dialog from document after capturing its information.
+    // })
+
+
     return { editableForm, editableDialog };
 };
 
@@ -118,12 +133,15 @@ function storeFormInput(todoEditableForm, todoEditableDialog, dataSetAttr, todoL
 
     storeEditableDialog(todoEditableDialog);
     storeDisplayDialog(displayDialog);
-    storeQuickDisplayDiv(todoListPane, checkbox, titleValue, notesValue, 
+    storeQuickDisplayDiv(todoListPane, checkbox, titleValue, notesValue,
         priorityListValue, dueDateValue, dataSetAttr);
 };
 
 function createProjectHeadingDivAndDialog() {
-    const { projectHeadingDialog, projectTitleForm, projectTitle, button, projectTitleDiv } = createFormFields();
+    const { projectHeadingDialog, projectTitleForm, projectTitle, projectTitleDiv,
+        button, quickDetailsDiv, quickActionDiv, editProjectNameBtn, 
+        delProjectBtn } = createFormFields();
+
     const saveProjectButton = button("button", "Save", "projectTitleButton");
     const cancelProjectButton = button("button", "Cancel", "projectTitleButton");
 
@@ -133,28 +151,29 @@ function createProjectHeadingDivAndDialog() {
     projectTitleForm.appendChild(saveProjectButton);
     projectHeadingDialog.appendChild(projectTitleForm);
 
-    projectTitleForm.addEventListener("submit", (event) => { // handles if enter button is pressed
+    quickActionDiv.appendChild(editProjectNameBtn);
+    quickActionDiv.appendChild(delProjectBtn);
+    projectTitleDiv.appendChild(quickDetailsDiv);
+    projectTitleDiv.appendChild(quickActionDiv);
+
+    projectTitleForm.addEventListener("submit", (event) => handleProjectSave(event)); // handles if enter button is pressed
+    saveProjectButton.addEventListener("click", (event) => handleProjectSave(event));
+    cancelProjectButton.addEventListener("click", () => projectHeadingDialog.close())
+                                                        // projectHeadingDialog.remove();
+
+    function handleProjectSave(event){
         event.preventDefault();
         const projectName = projectTitleForm.elements["project-Name"].value;
-        projectTitleDiv.innerText = projectName;
+        quickDetailsDiv.innerText = projectName;
         projectsPane.appendChild(projectTitleDiv);
         projectHeadingDialog.close();
-    });
-
-    saveProjectButton.addEventListener("click", () => {
-        const projectName = projectTitleForm.elements["project-Name"].value;
-        projectTitleDiv.innerText = projectName;
-        projectsPane.appendChild(projectTitleDiv);
-        projectHeadingDialog.close() ;
-    });
-
-    cancelProjectButton.addEventListener("click", () => {
-        projectHeadingDialog.close();
-    });
-
+        // projectHeadingDialog.remove(); // remove from document (it was added in document in index.js with document.body.appendChild(projectHeadingDialog);)
+        }
     return { projectHeadingDialog, projectTitleDiv };
 };
 
-export { createDialogs, storeFormInput, storeEditableDialog, storeDisplayDialog, 
-    createProjectHeadingDivAndDialog };
+export {
+    createDialogs, storeFormInput, storeEditableDialog, storeDisplayDialog,
+    createProjectHeadingDivAndDialog
+};
 
