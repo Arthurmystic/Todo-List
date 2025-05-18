@@ -8,10 +8,11 @@ let inEditingMode = false; // not in editing mode by default notEditing
 
 const storeEditableDialog = storeData();
 const storeDisplayDialog = storeData();
+const storeProjectInfo = storeData(); // store project divs
 
 // Displays summary of notes on screen with Edit, Delete and View buttons attached.
 function storeQuickDisplayDiv(todoListPane, checkbox, title, notes, priorityList, duedate, dataSetAttr) {
-    // notes, priorityList are indirectly used in retrieveandedit in the showModal(). deleting them here causes an error when that functions is called and confirm button pressed
+    // notes, priorityList are indirectly used in retrieveandedit in the showModal(). deleting them here causes an error when that function is called and confirm button pressed
 
     const { todoPreviewDiv, quickDetailsDiv, quickActionDiv, duedateDiv, viewButton,
         editButton, deleteButton, addNoteButtonToTodoListPane } = createFormFields();
@@ -35,6 +36,7 @@ function storeQuickDisplayDiv(todoListPane, checkbox, title, notes, priorityList
     todoListPane.appendChild(todoPreviewDiv);
 
     viewButton.addEventListener("click", () => {
+        console.log(storeDisplayDialog())
         retrieveAndDispDialog(dataSetAttr, storeDisplayDialog());
     });
     deleteButton.addEventListener("click", () => {
@@ -138,42 +140,61 @@ function storeFormInput(todoEditableForm, todoEditableDialog, dataSetAttr, todoL
 };
 
 function createProjectHeadingDivAndDialog() {
+    inEditingMode = false;  // not in editing mode by default
     const { projectHeadingDialog, projectTitleForm, projectTitle, projectTitleDiv,
-        button, quickDetailsDiv, quickActionDiv, editProjectNameBtn, 
+        button, quickDetailsDiv, quickActionDiv, editProjectNameBtn,
         delProjectBtn } = createFormFields();
 
     const saveProjectButton = button("button", "Save", "projectTitleButton");
     const cancelProjectButton = button("button", "Cancel", "projectTitleButton");
+    const dataAttr = crypto.randomUUID(); 
 
+    // Creating project name dialog
     projectTitleForm.appendChild(projectTitle.label);
     projectTitleForm.appendChild(projectTitle.element);
     projectTitleForm.appendChild(cancelProjectButton);
     projectTitleForm.appendChild(saveProjectButton);
     projectHeadingDialog.appendChild(projectTitleForm);
 
+    // Creating project title to display
     quickActionDiv.appendChild(editProjectNameBtn);
     quickActionDiv.appendChild(delProjectBtn);
     projectTitleDiv.appendChild(quickDetailsDiv);
     projectTitleDiv.appendChild(quickActionDiv);
 
+    // Event Listeners
     projectTitleForm.addEventListener("submit", (event) => handleProjectSave(event)); // handles if enter button is pressed
     saveProjectButton.addEventListener("click", (event) => handleProjectSave(event));
     cancelProjectButton.addEventListener("click", () => projectHeadingDialog.close())
-                                                        // projectHeadingDialog.remove();
+    // projectHeadingDialog.remove();
+    
+    editProjectNameBtn.addEventListener("click", (e) => {
+        inEditingMode = true;
+        projectHeadingDialog.showModal();
+    })
 
-    function handleProjectSave(event){
+    delProjectBtn.addEventListener("click", () => {
+        const idx = storeProjectInfo().findIndex(projInfo => projInfo.dataRef === dataAttr);
+        storeProjectInfo().splice(idx, 1);
+    });
+
+    function handleProjectSave(event) {
         event.preventDefault();
         const projectName = projectTitleForm.elements["project-Name"].value;
         quickDetailsDiv.innerText = projectName;
-        projectsPane.appendChild(projectTitleDiv);
+        if (inEditingMode){
+            projectsPane.replaceChild(projectTitleDiv, projectTitleDiv);
+            inEditingMode = false; // Getting out of editing mode
+        }else{
+            projectsPane.appendChild(projectTitleDiv);
+        }
         projectHeadingDialog.close();
         // projectHeadingDialog.remove(); // remove from document (it was added in document in index.js with document.body.appendChild(projectHeadingDialog);)
-        }
-    return { projectHeadingDialog, projectTitleDiv };
+    }
+    return { projectHeadingDialog, projectTitleDiv, editProjectNameBtn, delProjectBtn, dataAttr };
 };
 
 export {
     createDialogs, storeFormInput, storeEditableDialog, storeDisplayDialog,
-    createProjectHeadingDivAndDialog
+    createProjectHeadingDivAndDialog, storeProjectInfo
 };
-

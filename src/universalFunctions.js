@@ -10,9 +10,3 @@ function storeData() {
 };
 
 export { storeData }
-
-
-
-
-
-

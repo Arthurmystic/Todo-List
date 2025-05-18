@@ -4,6 +4,8 @@ import { domElements } from "./DOM-Elements.js";
 import editIcon from "./images/pen.png";
 import deleteIcon from "./images/bin.png";
 import viewIcon from "./images/eye.png";
+import editIcon2 from "./images/pen2.png";
+import deleteIcon2 from "./images/trash3.png";
 
 const { buildElement, createLabel, createFieldset, createTextArea, createPrioritySelector, img } = domElements;
 
@@ -104,8 +106,8 @@ const createFormFields = function () {
     const projectTitleDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "projectTitleDiv" }).element;
     const projectDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "projectDiv" }).element;
     const addTodoBtnDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "addTodoBtnDiv" }).element;
-    const editProjectNameBtn = addIcon(rawButton(), editIcon, "Edit", "projectBtn");
-    const delProjectBtn = addIcon(rawButton(), deleteIcon, "Delete", "projectBtn");
+    const editProjectNameBtn = addIcon(rawButton(), editIcon2, "Edit", "projectEditBtn");
+    const delProjectBtn = addIcon(rawButton(), deleteIcon2, "Delete", "projectDelBtn");
 
     return {
         checkbox, todoTitle, todoNotes, dueDate, priority, closeButton, resetButton, confirmButton, button, editableForm,

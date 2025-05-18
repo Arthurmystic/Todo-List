@@ -1,9 +1,5 @@
 import { createFormFields } from "./createFormElements.js";
-import { createDialogs } from "./createDialogs.js";
-import { storeData } from "./universalFunctions.js";
-
-const storeProjectInfo = storeData(); // store project divs
-// const storeProjectInfo = [];
+import { createDialogs, storeProjectInfo } from "./createDialogs.js";
 
 (function defaultProject() {
     const { projectTitleDiv, projectDiv, todoListPane, todoListPaneContainerDiv,
@@ -14,40 +10,54 @@ const storeProjectInfo = storeData(); // store project divs
 
     quickActionDiv.appendChild(editProjectNameBtn);
     quickActionDiv.appendChild(delProjectBtn);
+    editProjectNameBtn.classList.add("default");
+    delProjectBtn.classList.add("default");
 
-    projectTitleDiv.appendChild(quickDetailsDiv); 
+    projectTitleDiv.appendChild(quickDetailsDiv);
     projectTitleDiv.appendChild(quickActionDiv);
-
     projectsPane.appendChild(projectTitleDiv);
-    generateProject(todoListPane, projectDiv, projectTitleDiv, todoListPaneContainerDiv, 
-        addNoteButtonToTodoListPane);
+
+    const dataAttr = crypto.randomUUID();
+    generateProject(todoListPane, projectDiv, projectTitleDiv, todoListPaneContainerDiv,
+        addNoteButtonToTodoListPane, dataAttr);
     todoListPaneContainer.replaceChildren(projectDiv);
 
     return { projectTitleDiv };
 })();
 
-function generateProject(todoListPane, projectDiv, projectTitleDiv, todoListPaneContainerDiv, 
-    addNoteButtonToTodoListPane) {
+function generateProject(todoListPane, projectDiv, projectTitleDiv, todoListPaneContainerDiv,
+    addNoteButtonToTodoListPane, dataAttr) {
 
-    const dataAttr = crypto.randomUUID();
     projectDiv.dataset.ref = dataAttr; // assigning data-ref to projectDiv
 
     projectTitleDiv.dataset.ref = dataAttr;
 
     projectTitleDiv.querySelectorAll("*").forEach(child => {
         child.dataset.ref = dataAttr; // assign data-ref to children and grandchildren of projectTitleDiv 
-    })
+    });
 
     todoListPaneContainerDiv.dataset.ref = dataAttr;
 
     todoListButton.replaceChildren(addNoteButtonToTodoListPane);
     projectDiv.appendChild(todoListPane);
 
+
+    // Event Listeners
     addNoteButtonToTodoListPane.addEventListener("click", () => {
         const { editableDialog } = createDialogs(todoListPane);
         document.body.appendChild(editableDialog);
         editableDialog.showModal();
     });
+
+    projectTitleDiv.addEventListener("click", (e) => {
+        document.querySelectorAll(".projectTitleDiv.selected").forEach(div => {
+            div.classList.remove("selected")// Remove 'selected' from all projectTitleDivs
+        })
+        projectTitleDiv.classList.add("selected"); // and add selected to classlist selected div if it isnt there
+
+        todoListPaneContainer.replaceChildren(projectDiv);
+        todoListButton.replaceChildren(addNoteButtonToTodoListPane);
+    })
 
     const projectInfo = {
         currDiv: projectDiv,
@@ -57,7 +67,6 @@ function generateProject(todoListPane, projectDiv, projectTitleDiv, todoListPane
     };
 
     storeProjectInfo(projectInfo)
-    // storeProjectInfo.push(projectInfo)
 }
 
-export { storeProjectInfo, generateProject }
+export { generateProject }

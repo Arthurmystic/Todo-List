@@ -121,3 +121,40 @@
 
 //     return { storeProjectInfo, projectDiv, projectHeadingDialog, projectTitleDiv };
 // }
+
+
+
+
+// if (!isDefaultProject) {
+    //     console.log(delProjectBtn)
+    //     delProjectBtn.addEventListener("click", () => {
+    //         // console.log(storeProjectInfo())
+    //         const idx = storeProjectInfo().findIndex(projInfo => projInfo.dataRef === dataAttr);
+    //         storeProjectInfo().splice(idx, 1);
+    //     });
+    // }
+
+
+    // if (!isDefaultProject) {
+    //     console.log(delProjectBtn)
+    //     delProjectBtn.addEventListener("click", () => {
+    //         // console.log(storeProjectInfo())
+    //         const idx = storeProjectInfo().findIndex(projInfo => projInfo.dataRef === dataAttr);
+    //         storeProjectInfo().splice(idx, 1);
+    //     });
+    // }
+
+    // projectTitleDiv.addEventListener("click", (e) => {
+    //     todoListPaneContainer.replaceChildren(projectDiv);
+    //     todoListButton.replaceChildren(addNoteButtonToTodoListPane);
+    //     if (e.target.className == "projectDelBtn") {
+    //         if (!isDefaultProject) {
+    //             console.log(delProjectBtn)
+    //             delProjectBtn.addEventListener("click", () => {
+    //                 // console.log(storeProjectInfo())
+    //                 const idx = storeProjectInfo().findIndex(projInfo => projInfo.dataRef === dataAttr);
+    //                 storeProjectInfo().splice(idx, 1);
+    //             });
+    //         }
+    //     }
+    // })
