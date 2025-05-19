@@ -1,6 +1,8 @@
 import { createFormFields } from "./createFormElements.js";
 import { createDialogs, storeProjectInfo } from "./createDialogs.js";
 
+let delTriggered=false;
+
 (function defaultProject() {
     const { projectTitleDiv, projectDiv, todoListPane, todoListPaneContainerDiv,
         addNoteButtonToTodoListPane, editProjectNameBtn, delProjectBtn,
@@ -41,15 +43,38 @@ function generateProject(todoListPane, projectDiv, projectTitleDiv, todoListPane
     todoListButton.replaceChildren(addNoteButtonToTodoListPane);
     projectDiv.appendChild(todoListPane);
 
-
     // Event Listeners
+
+    // let delTriggered prevents this event listener from running twice
+    // esp wen delbtn is pressed. ;
+    projectTitleDiv.addEventListener("switch-to-prevProjTitlDiv", () => { // triggereed if delbtn . switches to a prevProjTitlDiv
+        delTriggered = true;
+        handleProjectSelection(); 
+    });
+
+    projectTitleDiv.addEventListener("click", () => { // triggered by directly clicking on a ProjTitlDiv
+        if (!delTriggered) handleProjectSelection();
+        delTriggered = false;
+    });
+
     addNoteButtonToTodoListPane.addEventListener("click", () => {
         const { editableDialog } = createDialogs(todoListPane);
         document.body.appendChild(editableDialog);
         editableDialog.showModal();
     });
 
-    projectTitleDiv.addEventListener("click", (e) => {
+    const projectInfo = {
+        currDiv: projectDiv,
+        projectTitleDiv,
+        dataRef: dataAttr,
+        btn: addNoteButtonToTodoListPane,
+        todoListPane,
+    };
+
+    storeProjectInfo(projectInfo)
+
+    function handleProjectSelection() {
+        console.log(projectDiv)
         document.querySelectorAll(".projectTitleDiv.selected").forEach(div => {
             div.classList.remove("selected")// Remove 'selected' from all projectTitleDivs
         })
@@ -57,16 +82,7 @@ function generateProject(todoListPane, projectDiv, projectTitleDiv, todoListPane
 
         todoListPaneContainer.replaceChildren(projectDiv);
         todoListButton.replaceChildren(addNoteButtonToTodoListPane);
-    })
-
-    const projectInfo = {
-        currDiv: projectDiv,
-        projectTitleDiv,
-        dataRef: dataAttr,
-        btn: addNoteButtonToTodoListPane,
-    };
-
-    storeProjectInfo(projectInfo)
+    }
 }
 
 export { generateProject }

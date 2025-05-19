@@ -2,7 +2,7 @@
 
 import { createFormFields } from "./createFormElements.js";
 import { retrieveAndDispDialog, retrieveAndDeleteDialog, retrieveAndEditDialog } from "./editDialogs.js";
-import { storeData } from "./universalFunctions.js";
+import { storeData, handleProjectSelection } from "./universalFunctions.js";
 
 let inEditingMode = false; // not in editing mode by default notEditing
 
@@ -147,7 +147,7 @@ function createProjectHeadingDivAndDialog() {
 
     const saveProjectButton = button("button", "Save", "projectTitleButton");
     const cancelProjectButton = button("button", "Cancel", "projectTitleButton");
-    const dataAttr = crypto.randomUUID(); 
+    const dataAttr = crypto.randomUUID();
 
     // Creating project name dialog
     projectTitleForm.appendChild(projectTitle.label);
@@ -167,25 +167,48 @@ function createProjectHeadingDivAndDialog() {
     saveProjectButton.addEventListener("click", (event) => handleProjectSave(event));
     cancelProjectButton.addEventListener("click", () => projectHeadingDialog.close())
     // projectHeadingDialog.remove();
-    
+
     editProjectNameBtn.addEventListener("click", (e) => {
         inEditingMode = true;
         projectHeadingDialog.showModal();
     })
 
-    delProjectBtn.addEventListener("click", () => {
+    delProjectBtn.addEventListener("click", (e) => {
+
         const idx = storeProjectInfo().findIndex(projInfo => projInfo.dataRef === dataAttr);
+        const currTodoListPaneCont = storeProjectInfo()[idx].currDiv;
+        const currTodoListAddBtn = storeProjectInfo()[idx].btn
+        const currtodoListPane = storeProjectInfo()[idx].todoListPane;
+
+        const prevProjTitlDiv = storeProjectInfo()[idx - 1].projectTitleDiv;
+
+        // ** below makes currDiv and its btn present to the dom, in case user didnt first select them.
+        // useful if user, while on a different projectTitleDiff, deletes another projectTitleDiv
+        // without selecting it first.
+        todoListPaneContainer.replaceChildren(currTodoListPaneCont); // **
+        todoListButton.replaceChildren(currTodoListAddBtn);          // **
+
+        todoListPaneContainer.removeChild(currTodoListPaneCont);
+        currTodoListPaneCont.removeChild(currtodoListPane);
+        todoListButton.removeChild(currTodoListAddBtn);
+        
+        const autoSwitchSelector = new CustomEvent("switch-to-prevProjTitlDiv", { bubbles: true, cancelable: true });
+        prevProjTitlDiv.dispatchEvent(autoSwitchSelector);
+        
         storeProjectInfo().splice(idx, 1);
+        // prevProjTitlDiv.click();
+
+        projectsPane.removeChild(projectTitleDiv);
     });
 
     function handleProjectSave(event) {
         event.preventDefault();
         const projectName = projectTitleForm.elements["project-Name"].value;
         quickDetailsDiv.innerText = projectName;
-        if (inEditingMode){
+        if (inEditingMode) {
             projectsPane.replaceChild(projectTitleDiv, projectTitleDiv);
             inEditingMode = false; // Getting out of editing mode
-        }else{
+        } else {
             projectsPane.appendChild(projectTitleDiv);
         }
         projectHeadingDialog.close();

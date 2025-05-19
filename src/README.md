@@ -158,3 +158,100 @@
     //         }
     //     }
     // })
+
+
+
+
+
+// function handleProjectSelection(selector, titleDiv, newDiv, btn) {
+//     document.querySelectorAll(selector).forEach(div => {
+//         div.classList.remove("selected")// Remove 'selected' from all projectTitleDivs
+//     })
+//     titleDiv.classList.add("selected"); // and add selected to classlist selected div if it isnt there
+
+//     todoListPaneContainer.replaceChildren(newDiv);
+//     todoListButton.replaceChildren(btn);
+//     console.log('eeyyeeeeyyyee')
+// }
+
+// function handleProjectSelection() {
+//     document.querySelectorAll(".projectTitleDiv.selected").forEach(div => {
+//         div.classList.remove("selected")// Remove 'selected' from all projectTitleDivs
+//     })
+//     projectTitleDiv.classList.add("selected"); // and add selected to classlist selected div if it isnt there
+
+//     todoListPaneContainer.replaceChildren(projectDiv);
+//     todoListButton.replaceChildren(addNoteButtonToTodoListPane);
+// }
+
+
+
+
+
+// delProjectBtn.addEventListener("click", (e) => {
+
+//         const myProjectClickEvent = new Event('my-project-click', { bubbles: true, cancelable: true });
+
+
+//         const idx = storeProjectInfo().findIndex(projInfo => projInfo.dataRef === dataAttr);
+//         const currTodoListPaneCont = storeProjectInfo()[idx].currDiv;
+//         const currTodoListAddBtn = storeProjectInfo()[idx].btn;
+
+//         // todoListPaneContainer.replaceChildren(currTodoListPaneCont);
+//         // todoListButton.replaceChildren(currTodoListAddBtn);
+
+//         // currTodoListPaneCont.dispatchEvent(myProjectClickEvent);
+
+//         console.log(e.target.dataset.ref, dataAttr, currTodoListPaneCont)
+
+
+//         const currtodoListPane = storeProjectInfo()[idx].todoListPane;
+//         const prevProjTitlDiv = storeProjectInfo()[idx - 1].projectTitleDiv;
+
+//         // const currProjTitlDiv = storeProjectInfo()[idx].projectTitleDiv;
+//         prevProjTitlDiv.dispatchEvent(myProjectClickEvent);
+//         // console.log(currProjTitlDiv, prevProjTitlDiv )
+
+//         // console.log("prevProjTitlDiv:", prevProjTitlDiv);
+//         // console.log("Is prevProjTitlDiv in the DOM?", document.body.contains(prevProjTitlDiv));
+
+//         todoListPaneContainer.removeChild(currTodoListPaneCont);
+//         currTodoListPaneCont.removeChild(currtodoListPane);
+//         todoListButton.removeChild(currTodoListAddBtn);
+
+//         storeProjectInfo().splice(idx, 1);
+
+
+//         // prevProjTitlDiv.dispatchEvent(myProjectClickEvent);
+
+
+//         // prevProjTitlDiv.dispatchEvent(new Event("my-project-click"));
+
+//         // prevProjTitlDiv.click();
+
+//         projectsPane.removeChild(projectTitleDiv);
+//         // prevProjTitlDiv.click();
+
+//         // console.log("todoListPaneContainer: ",todoListPaneContainer, 
+//         //     "currTodoListPaneDiv: ",currTodoListPaneDiv, 
+//         //     "projectTitleDiv: ", projectTitleDiv,  
+//         //     "todoListButton: ", todoListButton,
+//         //     "currTodoListAddBtn: ", currTodoListAddBtn
+//         // )
+//     });
+
+//     function handleProjectSave(event) {
+//         event.preventDefault();
+//         const projectName = projectTitleForm.elements["project-Name"].value;
+//         quickDetailsDiv.innerText = projectName;
+//         if (inEditingMode) {
+//             projectsPane.replaceChild(projectTitleDiv, projectTitleDiv);
+//             inEditingMode = false; // Getting out of editing mode
+//         } else {
+//             projectsPane.appendChild(projectTitleDiv);
+//         }
+//         projectHeadingDialog.close();
+//         // projectHeadingDialog.remove(); // remove from document (it was added in document in index.js with document.body.appendChild(projectHeadingDialog);)
+//     }
+//     return { projectHeadingDialog, projectTitleDiv, editProjectNameBtn, delProjectBtn, dataAttr };
+// };
