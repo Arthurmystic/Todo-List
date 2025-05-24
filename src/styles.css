@@ -125,28 +125,35 @@ footer {
 .todoPreviewDiv {
     display: flex;
     justify-content: space-between;
+    /* width: 400px; */
+    height: 75px;
     align-items: center;
     background-color: #fff5ef;
     border-radius: 12px;
     padding: 1rem;
-    margin: 10px 0;
+    margin: 10px 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    /* border-right: 1px solid rgba(215, 168, 110, 0.3);
+    border-top: 1px solid blue;
+    border-bottom: 1px solid rgba(215, 168, 110, 0.3); */
     border: 1px solid rgba(215, 168, 110, 0.3);
+    /* border: 3px solid red; */
     transition:
-        box-shadow 0.3s ease,
-        transform 0.25s ease,
-        border-color 0.3s ease;
+        box-shadow 0.5s ease,
+        transform 0.4s ease,
+        border-color 0.4s ease;
 }
 
 .todoPreviewDiv:hover {
-    transform: translateY(-4px) scale(1.015); /* subtle lift */
-    box-shadow: 0 8px 20px rgba(60, 35, 20, 0.35); /* deeper + richer shadow */
-    border-color: rgba(215, 168, 110, 0.6); /* stronger outline */
+    transform: translateY(-4px) scale(1.015);
+    box-shadow: 0 8px 20px rgba(60, 35, 20, 0.35); 
+    border: 1px solid rgba(215, 168, 110, 0.6) !important; /* to avoid being overidden by the inline style injected by js */
   }
   
 .quickDetailsDiv {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
+    align-items: center;
     gap: 6px;
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
@@ -195,10 +202,10 @@ footer {
 input[type="checkbox"] {
     width: 18px;
     height: 18px;
-    accent-color: #bc8655; /* checkbox color */
+    accent-color: #bc8655; 
 }
 
-input[type="checkbox"]:checked+label {
+input[type="checkbox"]:checked+label{
     text-decoration: line-through;
     color: #999;
 }
@@ -209,12 +216,6 @@ button {
     text-align: center;
     border-color: white;
     font-size: 20px;
-}
-
-.resetButton,
-.confirmButton {
-    width: 5rem;
-    font-size: 12px;
 }
 
 .addNoteButton {
@@ -276,7 +277,112 @@ button {
 .projectEditBtn.default {
     opacity: 0.4;                /* Make it visually greyed out */
     pointer-events: none;        /* Prevent clicking */
-    filter: grayscale(100%);     /* Optional: makes icons look desaturated */
+    filter: grayscale(100%);     /* makes icons look desaturated */
+}
+
+dialog {
+    padding: 2rem;
+    border: none;
+    border-radius: 12px;
+    background-color: #FDF6ED; 
+    color: #3E2723; 
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 90%;
+    transition: transform 0.3s ease;
+}
+
+dialog::backdrop {
+    /* background: rgba(0, 0, 0, 0.4); */
+    backdrop-filter: blur(1.5px);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+form label {
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #4e342e;
+}
+
+form input,
+form textarea,
+form select {
+    padding: 0.6rem;
+    font-size: 1rem;
+    border: 1px solid #D7A86E;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #3E2723;
+}
+
+form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.resetButton,
+.confirmButton,
+.cancelButton {
+    background-color: #EEDBC4; 
+    width: 6rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #3E2723;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 0.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.resetButton:hover,
+.confirmButton:hover,
+.cancelButton:hover {
+    background-color: #e0c3a0;
+    transform: translateY(-2px) scale(1.05);
+}
+
+.closeButton {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    color: #3E2723;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.closeButton:hover {
+    transform: scale(1.2);
+}
+
+.btnDiv{
+    display: flex;
+    justify-content: space-between;
+}
+
+label{
+    font-weight: bold;
+}
+
+.checkBoxLabelDiv{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.duedateDiv{
+    font-size: 14px;
+
 }
 
 

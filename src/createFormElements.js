@@ -69,6 +69,7 @@ const createFormFields = function () {
     const todoListPaneContainerDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "todoListPaneContainer" }).element;
     const todoListPane = buildElement("div", { id: crypto.randomUUID(), elemClass: "todoListPane" }).element;
     const addNoteButtonToTodoListPane = createButton("button", "+ New Task", { type: "button", elemClass: "addNoteButton", id: crypto.randomUUID() });
+    const btnDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "btnDiv" }).element;
 
     // Editable dialog related
     const editableDialog = buildElement("dialog", { id: crypto.randomUUID() }).element;
@@ -76,12 +77,14 @@ const createFormFields = function () {
     const editableForm = buildElement("form", { name: "editableForm", id: crypto.randomUUID() }).element;
     const todoNotes = createTextAreaElement({ name: "todo-notes", id: crypto.randomUUID(), placeholder: "Notes" });
     const checkbox = createInputElement("input", { name: "todo-checkbox", type: "checkbox", elemClass: "checkbox", text: "Title: ", id: crypto.randomUUID() });
-    const todoTitle = createInputElement("input", { name: "todo-title", type: "text", text: "Title: ", id: crypto.randomUUID() });
+    const todoTitle = createInputElement("input", { name: "todo-title", type: "text", text: "Title: ", id: crypto.randomUUID(), required: "required" });
+   
     const dueDate = createInputElement("input", { name: "todo-dueDate", type: "date", text: "Due Date: ", id: crypto.randomUUID() });
+   
     const priority = createPriorityOptions({ name: "priorityList", text: "Priority: ", id: crypto.randomUUID() });
     const closeButton = createButton("button", "X", { type: "button", elemClass: "closeButton", id: crypto.randomUUID() });
     const resetButton = createButton("button", "Clear", { type: "reset", elemClass: "resetButton", id: crypto.randomUUID() });
-    const confirmButton = createButton("button", "Confirm", { type: "submit", elemClass: "submitButton", id: crypto.randomUUID() });
+    const confirmButton = createButton("button", "Confirm", { type: "submit", elemClass: "confirmButton", id: crypto.randomUUID() });
     
     // display dialog related on clicking view
     const displayForm = buildElement("form", { name: "displayForm", id: crypto.randomUUID() }).element;
@@ -89,19 +92,22 @@ const createFormFields = function () {
 
     // Display & Storage fields
     const storeFormDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "storeFormDiv" }).element;
-    const duedateDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "quickElemDisplayDiv" }).element;
+    const duedateDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "duedateDiv" }).element;
 
     // todoPreview related
     const todoPreviewDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "todoPreviewDiv" }).element;
     const quickDetailsDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "quickDetailsDiv" }).element;
     const quickActionDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "quickActionDiv" }).element;
+    const checkBoxLabelDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "checkBoxLabelDiv" }).element;
     const editButton = addIcon(rawButton(), editIcon, "Edit", "quickDispButton");
     const deleteButton = addIcon(rawButton(), deleteIcon, "Delete", "quickDispButton");
     const viewButton = addIcon(rawButton(), viewIcon, "View", "quickDispButton"); 
 
     // PROJECT PANE RELATED
     const projectHeadingDialog = buildElement("dialog", { id: crypto.randomUUID() }).element;
-    const projectTitle = createInputElement("input", { name: "project-Name", type: "text", text: "Project Name: ", id: crypto.randomUUID() });
+    const projectTitle = createInputElement("input", { name: "project-Name", type: "text", text: "Project Name: ", id: crypto.randomUUID(), required: "required" });
+    // const todoTitle = createInputElement("input", { name: "todo-title", type: "text", text: "Title: ", id: crypto.randomUUID(), required: "required" });
+   
     const projectTitleForm = buildElement("form", { name: "projectTitleForm", id: crypto.randomUUID() }).element;
     const projectTitleDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "projectTitleDiv" }).element;
     const projectDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "projectDiv" }).element;
@@ -114,7 +120,7 @@ const createFormFields = function () {
         editableDialog, displayForm, displayDialog, todoPreviewDiv, quickDetailsDiv, quickActionDiv, duedateDiv, viewButton, 
         editButton, deleteButton, storeFormDiv, addNoteButtonToTodoListPane, projectDiv, projectTitleForm, projectTitleDiv,
         todoFieldset, todoListPaneContainerDiv, todoListPane, projectHeadingDialog, projectTitle, addTodoBtnDiv, editProjectNameBtn,
-        delProjectBtn
+        delProjectBtn, btnDiv, checkBoxLabelDiv
     };
 };
 

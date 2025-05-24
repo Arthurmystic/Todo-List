@@ -24,6 +24,16 @@ let delTriggered=false;
         addNoteButtonToTodoListPane, dataAttr);
     todoListPaneContainer.replaceChildren(projectDiv);
 
+    const projectInfo = {
+        currDiv: projectDiv,
+        projectTitleDiv,
+        dataRef: dataAttr,
+        btn: addNoteButtonToTodoListPane,
+        todoListPane,
+    };
+
+    storeProjectInfo(projectInfo)
+    
     return { projectTitleDiv };
 })();
 
@@ -45,15 +55,18 @@ function generateProject(todoListPane, projectDiv, projectTitleDiv, todoListPane
 
     // Event Listeners
 
-    // let delTriggered prevents this event listener from running twice
+    // delTriggered prevents this event listener from running twice
     // esp wen delbtn is pressed. ;
-    projectTitleDiv.addEventListener("switch-to-prevProjTitlDiv", () => { // triggereed if delbtn . switches to a prevProjTitlDiv
+    projectTitleDiv.addEventListener("switch-to-prevProjTitlDiv", () => { // triggereed if delbtn. switches to a prevProjTitlDiv
         delTriggered = true;
         handleProjectSelection(); 
+        
     });
 
-    projectTitleDiv.addEventListener("click", () => { // triggered by directly clicking on a ProjTitlDiv
-        if (!delTriggered) handleProjectSelection();
+    projectTitleDiv.addEventListener("click", () => { // triggered by directly clicking on a ProjTitlDiv to switch to that project
+        if (!delTriggered) {
+            handleProjectSelection();
+        };
         delTriggered = false;
     });
 
@@ -64,17 +77,16 @@ function generateProject(todoListPane, projectDiv, projectTitleDiv, todoListPane
     });
 
     const projectInfo = {
-        currDiv: projectDiv,
-        projectTitleDiv,
+        currDiv: projectDiv, // this contains the to dos of a given project. todoPreview is stored in todoListPane which is stored in projectDiv
+        projectTitleDiv,     // this contains the title of the project
         dataRef: dataAttr,
-        btn: addNoteButtonToTodoListPane,
+        btn: addNoteButtonToTodoListPane, // this contains the "add to do btn "of the project
         todoListPane,
     };
 
     storeProjectInfo(projectInfo)
 
     function handleProjectSelection() {
-        console.log(projectDiv)
         document.querySelectorAll(".projectTitleDiv.selected").forEach(div => {
             div.classList.remove("selected")// Remove 'selected' from all projectTitleDivs
         })

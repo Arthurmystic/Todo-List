@@ -17,6 +17,7 @@ const domElements = (function () {
         if (state.elemClass) element.setAttribute("class", state.elemClass);
         if (state.type) element.setAttribute("type", state.type); 
         if (state.value) element.setAttribute("value", state.value);
+        if (state.required) element.required = true;
         return { element };
     }
 
