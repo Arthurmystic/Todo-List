@@ -11,6 +11,13 @@ function storeData() {
     }
 };
 
+// function createStorageArrays() {
+//     const storeEditableDialog = storeData();
+//     const storeDisplayDialog = storeData();
+//     const storeProjectInfo = storeData(); // for storing project divs
+//     return { storeEditableDialog, storeDisplayDialog, storeProjectInfo};
+// }
+
 // Change left and right borders depeneding on priority level
 function changeLeftRightBorderColor(div, priority) {
     const priorities = {
@@ -23,10 +30,49 @@ function changeLeftRightBorderColor(div, priority) {
 }
 
 // stores to local storage
+// function storeInLocalStorage() {
+//     if (storeProjectInfo) localStorage.setItem("storeProjectInfoLS", JSON.stringify(storeProjectInfo));
+//     if (storeDisplayDialog) localStorage.setItem("storeProjectInfoLS", JSON.stringify(storeDisplayDialog));
+//     if (storeEditableDialog) localStorage.setItem("storeEditableDialogLS", JSON.stringify(storeEditableDialog));
+//     // return(storeProjectInfoLS,storeProjectInfoLS, storeEditableDialogLS)
+// }
+
 function storeInLocalStorage() {
-    if(storeProjectInfo) localStorage.setItem("storeProjectInfoLS", JSON.stringify(storeProjectInfo));
-    if (storeDisplayDialog) localStorage.setItem("storeDisplayDialogLS", JSON.stringify(storeDisplayDialog));
-    if (storeEditableDialog) localStorage.setItem("storeEditableDialogLS", JSON.stringify(storeEditableDialog));
+    // console.log(projectDiv.innerHTML); 
+    
+
+    // const text1 = ["arthur"];
+    // const arr1 = storeDisplayDialog();
+
+    // localStorage.setItem("trial", JSON.stringify(text1));
+    // localStorage.setItem("array", JSON.stringify(arr1));
+
+    // console.log ("text 1 - no inparse:  ", localStorage.getItem("trial"));
+    // console.log ("text 1 - with parse:  ", JSON.parse(localStorage.getItem("trial")));
+
+    // console.log ("Array  :  ", JSON.parse(localStorage.getItem("array")));
+    // console.log ("Arr1  :  ", arr1.length>1?arr1[0]: ' ');
+    
+
+
+
+
+
+
+    // console.log (storeProjectInfo(), storeDisplayDialog(), storeEditableDialog())
+    // const nam = ["arthir"];
+    // const arr = storeDisplayDialog();
+    // localStorage.setItem("nam", JSON.stringify(nam));
+    // localStorage.setItem("storeProjectInfoLS", storeProjectInfo());
+    // localStorage.setItem("storeDispDiagInfoLS", JSON.stringify(arr));
+    // localStorage.setItem("storeEditableDialogLS", JSON.stringify(storeEditableDialog()));
+
+    // // console.log (localStorage.getItem("nam"))
+    // // console.log (localStorage.getItem("storeProjectInfoLS"),'pjInf', storeProjectInfo())
+    // console.log("arr: ", arr)
+    // console.log(localStorage.getItem("storeDispDiagInfoLS"), storeDisplayDialog())
+    // // console.log (localStorage.getItem("storeEditableDialogLS"), storeEditableDialog())
+    // // return(storeProjectInfoLS,storeProjectInfoLS, storeEditableDialogLS)
 }
 
 export { storeData, changeLeftRightBorderColor, storeInLocalStorage }

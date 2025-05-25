@@ -1,7 +1,9 @@
 import { createFormFields } from "./createFormElements.js";
-import { createDialogs, storeProjectInfo } from "./createDialogs.js";
+// import { createDialogs, storeProjectInfo } from "./createDialogs.js";
+import { createDialogs } from "./createDialogs.js";
+import { storeProjectInfo } from "./pageLoad.js";
 
-let delTriggered=false;
+let delTriggered = false;
 
 (function defaultProject() {
     const { projectTitleDiv, projectDiv, todoListPane, todoListPaneContainerDiv,
@@ -23,6 +25,8 @@ let delTriggered=false;
     generateProject(todoListPane, projectDiv, projectTitleDiv, todoListPaneContainerDiv,
         addNoteButtonToTodoListPane, dataAttr);
     todoListPaneContainer.replaceChildren(projectDiv);
+    
+    console.log(projectDiv)
 
     const projectInfo = {
         currDiv: projectDiv,
@@ -33,7 +37,7 @@ let delTriggered=false;
     };
 
     storeProjectInfo(projectInfo)
-    
+
     return { projectTitleDiv };
 })();
 
@@ -59,8 +63,8 @@ function generateProject(todoListPane, projectDiv, projectTitleDiv, todoListPane
     // esp wen delbtn is pressed. ;
     projectTitleDiv.addEventListener("switch-to-prevProjTitlDiv", () => { // triggereed if delbtn. switches to a prevProjTitlDiv
         delTriggered = true;
-        handleProjectSelection(); 
-        
+        handleProjectSelection();
+
     });
 
     projectTitleDiv.addEventListener("click", () => { // triggered by directly clicking on a ProjTitlDiv to switch to that project
@@ -75,6 +79,10 @@ function generateProject(todoListPane, projectDiv, projectTitleDiv, todoListPane
         document.body.appendChild(editableDialog);
         editableDialog.showModal();
     });
+
+    // console.log(projectDiv.innerHTML);
+
+
 
     const projectInfo = {
         currDiv: projectDiv, // this contains the to dos of a given project. todoPreview is stored in todoListPane which is stored in projectDiv

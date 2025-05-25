@@ -2,14 +2,17 @@
 
 import { createFormFields } from "./createFormElements.js";
 import { retrieveAndDispDialog, retrieveAndDeleteDialog, retrieveAndEditDialog } from "./editDialogs.js";
-import { storeData, changeLeftRightBorderColor } from "./universalFunctions.js";
+// import { storeData, changeLeftRightBorderColor } from "./universalFunctions.js";
+import { changeLeftRightBorderColor } from "./universalFunctions.js";
 import { parseISO, format } from "date-fns";
+
+import { storeProjectInfo, storeEditableDialog, storeDisplayDialog } from "./pageLoad.js";
 
 let inEditingMode = false; // not in editing mode by default notEditing
 
-const storeEditableDialog = storeData(); 
-const storeDisplayDialog = storeData();
-const storeProjectInfo = storeData(); // store project divs 
+// const storeEditableDialog = storeData();
+// const storeDisplayDialog = storeData();
+// const storeProjectInfo = storeData(); // for storing project divs 
 
 // Displays summary of notes on screen with Edit, Delete and View buttons attached.
 function storeQuickDisplayDiv(todoListPane, checkbox, title, notes, priorityValue, duedate, dataSetAttr) {
