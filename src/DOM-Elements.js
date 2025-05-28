@@ -3,7 +3,7 @@
 const domElements = (function () {
     
     const projectButtonDiv = document.querySelector("#projectButtonDiv");
-    const todoListButton = document.querySelector("#todoListButton");
+    const todoListButtonDiv = document.querySelector("#todoListButtonDiv");
     const addProjectButton = document.querySelector("#addProjectButton");
     const projectsPane = document.querySelector("#projectsPane");
     const todoListPaneContainer = document.querySelector("#todoListPaneContainer");
@@ -18,6 +18,7 @@ const domElements = (function () {
         if (state.type) element.setAttribute("type", state.type); 
         if (state.value) element.setAttribute("value", state.value);
         if (state.required) element.required = true;
+        if (state.dataAction) element.dataset.action = state.dataAction;
         return { element };
     }
 
@@ -56,9 +57,9 @@ const domElements = (function () {
         selectOptions.setAttribute("name", state.name);
         selectOptions.setAttribute("id", state.id);
 
-        const option1 = createSelectOption({value: "high", text: "High"});
-        const option2 = createSelectOption({value: "medium", text: "Medium"});
-        const option3 = createSelectOption({value: "low", text: "Low"});
+        const option1 = createSelectOption({value: "High", text: "High"});
+        const option2 = createSelectOption({value: "Medium", text: "Medium"});
+        const option3 = createSelectOption({value: "Low", text: "Low"});
 
         selectOptions.appendChild(option1);
         selectOptions.appendChild(option2);
@@ -66,7 +67,7 @@ const domElements = (function () {
         return { selectOptions }
     }
     return { buildElement, createLabel, createFieldset, createTextArea, img,
-        createPrioritySelector, projectButtonDiv, todoListButton, addProjectButton,
+        createPrioritySelector, projectButtonDiv, todoListButtonDiv, addProjectButton,
         projectsPane, todoListPaneContainer
     };
 

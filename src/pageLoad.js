@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 let storeProjectInfo = storeData();
-let storeDisplayDialog = storeData();
+let storeReadOnlyDialog = storeData();
 let storeEditableDialog = storeData();
 
 // document.addEventListener("DOMContentLoaded", () => {
@@ -21,20 +21,20 @@ let storeEditableDialog = storeData();
 //     storeProjectInfo = (stringProjInfo)?
 //         JSON.parse(stringProjInfo) :
 //         storeData();
-//     storeDisplayDialog = (stringDispDialInfo)?
+//     storeReadOnlyDialog = (stringDispDialInfo)?
 //         JSON.parse(stringDispDialInfo) :
 //         storeData();
 //     storeEditableDialog = (stringEditDiaInfo)?
 //         JSON.parse(stringEditDiaInfo) :
 //         storeData();
-//     return { storeEditableDialog, storeDisplayDialog, storeProjectInfo };
+//     return { storeEditableDialog, storeReadOnlyDialog, storeProjectInfo };
 // })
 
-export { storeEditableDialog, storeDisplayDialog, storeProjectInfo };
+export { storeEditableDialog, storeReadOnlyDialog, storeProjectInfo };
 
 
 function storeInLocalStorage() {
     if (storeProjectInfo) localStorage.setItem("storeProjectInfoLS", JSON.stringify(storeProjectInfo));
-    if (storeDisplayDialog) localStorage.setItem("storeDisplayDialogLS", JSON.stringify(storeDisplayDialog));
+    if (storeReadOnlyDialog) localStorage.setItem("storeDisplayDialogLS", JSON.stringify(storeReadOnlyDialog));
     if (storeEditableDialog) localStorage.setItem("storeEditableDialogLS", JSON.stringify(storeEditableDialog));
 }
