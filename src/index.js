@@ -3,17 +3,16 @@
 import "./styles.css";
 // import { storeEditableDialog, storeReadOnlyDialog, storeProjectInfo } from "./pageLoad.js";
 import { createFormFields } from "./createFormElements.js";
-import { createProjectHeadingDivAndDialog } from "./dialogFactory.js"
-import { generateProject } from "./createProject.js"
-import { storeInLocalStorage } from "./universalFunctions.js"
+import { createProjectHeadingDivAndDialog } from "./dialogFactory.js";
+import { generateProject } from "./createProject.js";
+import { storeInLocalStorage } from "./universalFunctions.js";
 import { storeProjectInfo } from "./pageLoad.js";
-import { setupEventListeners } from "./eventListeners.js"
+import { setupEventListeners } from "./eventListeners.js";
 
 setupEventListeners();
 
 document.body.addEventListener("click", (e) => {
     if (e.target.tagName === "BUTTON") {
-        // console.log("buttonsbuttonsbuttonsbuttons");
         storeInLocalStorage();
     };
 });
@@ -33,7 +32,7 @@ btId.addEventListener('click', () => {
     // storeProjectInfo()[0].currDiv.innerHTML = 23;
     // console.log(storeProjectInfo()[0].currDiv.outerHTML);
     const newDiv = document.createElement("div");
-    newDiv.innerHTML = storeProjectInfo()[0].currDiv.outerHTML
+    newDiv.innerHTML = storeProjectInfo()[0].currDiv.outerHTML;
     console.log(newDiv);
     document.body.appendChild(newDiv);
 })

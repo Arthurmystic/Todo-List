@@ -1,72 +1,51 @@
 // eventListeners.js
 
-import { createFormFields } from "./createFormElements.js";
-import { createProjectHeadingDivAndDialog } from "./dialogFactory.js"
-import { generateProject } from "./createProject.js"
-import {
-    handleAddProject, handleAddNote, handleViewNote, handleEditNote, handleDeleteNote, deleteElem, handleCloseDialog,
-    handleEditableNoteForm, selectProjectOnClick, handleProjectForm, handleEditProjectName, handleCancelSaveProject,
-    handleDeleteProject
-} from "./eventListeners.js";
+import { handleAddProject, handleAddNote, handleViewNote, handleEditNote, handleDeleteNote, handleCloseDialog,
+         handleEditableNoteForm, selectProjectOnClick, handleProjectForm, handleEditProjectName, handleCancelSaveProject,
+         handleDeleteProject } from "./eventHandlers.js";
 
 let inEditingMode = false;
-let delTriggered = false;
 
 function setupEventListeners() {
     const handlers = {
-        // on screen todo Note
-        "addNote": () => { inEditingMode = false; handleAddNote() },   // *** DONE *** //
+        // TODO NOTES
+        addNote: () => { inEditingMode = false; handleAddNote() },
+        viewNote: (state) => handleViewNote(state.dataAttr),
+        editNote: (state) => { handleEditNote(state.dataAttr); inEditingMode = true; },
+        deleteNote: (state) => handleDeleteNote(state.dataAttr),
 
-        "viewNote": (e, dataAttr) => handleViewNote(dataAttr),  // *** DONE *** //
+        // PROJECTS
+        addProject: () => { inEditingMode = false; handleAddProject() },
+        editProjectName: (state) => { inEditingMode = true; handleEditProjectName(state.dataAttr) },
+        selectProjectTitleDiv: (state) => selectProjectOnClick(state.e, state.dataAttr),
+        deleteProject: (state) => handleDeleteProject(state.e, state.dataAttr),
+        cancelSaveProject: (state) => handleCancelSaveProject(state.e),
 
-        "editNote": (e, dataAttr) => { handleEditNote(dataAttr); inEditingMode = true; }, // *** DONE *** //
+        // FORMS
+        editableNoteForm: (state) => handleEditableNoteForm(state.e, state.dataAttr, inEditingMode),  // handles what happens after submit form
+        projectTitleForm: (state) => handleProjectForm(state.e, state.dataAttr, inEditingMode),
 
-        "deleteNote": (e, dataAttr) => handleDeleteNote(dataAttr),  // *** DONE *** //
-
-        // project
-        "addProject": () => { inEditingMode = false;   handleAddProject() }, // *** DONE *** //
-        
-        "editProjectName": (e, dataAttr) => { inEditingMode = true; handleEditProjectName(e, dataAttr) }, // *** DONE *** //
-
-        "selectProjectTitleDiv": (e, dataAttr) => selectProjectOnClick(e, dataAttr, delTriggered), // *** DONE *** //
-
-        "deleteProject": (e, dataAttr) => handleDeleteProject(e, dataAttr), // *** DONE *** //
-
-        "resetForm": (ref) => handleClearForm(), // *** DONE *** //
-
-        "cancelSaveProject": (e) => handleCancelSaveProject(e),  // *** DONE *** //
-
-        // forms
-        "editableNoteForm": (e, dataAttr) => handleEditableNoteForm(e, dataAttr, inEditingMode),  // *** DONE *** // handles save / confirm by default as a form eleement
-        
-        "projectTitleForm": (e, dataAttr) => handleProjectForm(e, dataAttr, inEditingMode), // *** DONE *** //
-
-        // generic
-        "closeDialog": (e) => handleCloseDialog(e), // *** DONE *** //
+        // GENERIC
+        closeDialog: (state) => handleCloseDialog(state.e),
     }
 
     document.addEventListener("click", (e) => {
-        // const action = e.target.dataset.action;
+        // const action = e.target.dataset.action; 
         const actionElement = e.target.closest("[data-action]"); // closest is for an element
         const action = actionElement ? actionElement.dataset.action : null;
-
         const dataAttr = e.target.dataset.ref;
-        console.log("action: ", dataAttr)
-        console.log ("11111111111: ", dataAttr)
-        if (action && !action.includes("Form")) handlers[action](e, dataAttr, action);
+        if (action && !action.includes("Form")) handlers[action]({e, dataAttr});
     })
 
-    document.addEventListener("submit", (e) => { // mayremove
+    document.addEventListener("submit", (e) => {
+        // const form = e.target.form; // not as effective, if target is not on form yet intention is form
         const form = e.target.closest("form");
-        // const dialog = e.target.closest("dialog");
-        // const form = e.target.form;
-        // const action = e.target.closest("dataAction");
-        // const action = form.querySelector("[data-action]").value;
-        const action = form.dataset.action;
+        const action = form ? form.dataset.action : null;
         const dataAttr = e.target.dataset.ref;
-        console.log("submitted: ", dataAttr)
-
-        if (action && action.includes("Form")) handlers[action](e, dataAttr, action);
+        if (action && action.includes("Form")) handlers[action]({e, dataAttr});
+        // NB: Reset form is intrinsically implemented since 'clear' button type was set to`reset` - no need for event listeners for it.
+        // NB: Much as submit is handled intrinsically (since button type for save/confirm is submit), the event listener for it is required 
+        // so as to process the form after submission. No processing is required for reset/clear hence no need to listen for it.
     })
 }
 

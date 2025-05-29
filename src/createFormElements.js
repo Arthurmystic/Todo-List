@@ -67,11 +67,11 @@ const createFormFields = function () {
     const closeButton = createButton("button", "X", { type: "button", elemClass: "closeButton", id: crypto.randomUUID(), dataAction: "closeDialog" });
     const resetButton = createButton("button", "Clear", { type: "reset", elemClass: "resetButton", id: crypto.randomUUID(), dataAction: "resetForm" });
     const confirmButton = createButton("button", "Confirm", { type: "submit", elemClass: "confirmButton", id: crypto.randomUUID(), dataAction: "saveForm" });
+    const duedateDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "duedateDiv" }).element;
     
     // TODO LIST PANE RELATED
     //General
     const todoListPaneContainerDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "todoListPaneContainer" }).element;
-    // const todoListPane = buildElement("div", { id: crypto.randomUUID(), elemClass: "todoListPane" }).element;
     const addNoteButtonToTodoListPane = createButton("button", "+ New Task", { type: "button", elemClass: "addNoteButton", id: crypto.randomUUID(), dataAction: "addNote"});
     const btnDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "btnDiv" }).element;
 
@@ -86,13 +86,11 @@ const createFormFields = function () {
     const priority = createPriorityOptions({ name: "priorityList", text: "Priority: ", id: crypto.randomUUID() });
     
     
-    // display dialog related on clicking view
+    // readOnlyDialog related on clicking viewNote
     const readOnlyForm = buildElement("form", { name: "readOnlyForm", id: crypto.randomUUID(), dataAction: "readOnlyForm" }).element;
     const readOnlyDialog = buildElement("dialog", { id: crypto.randomUUID() }).element;
+    const readOnlyFormDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "readOnlyFormDiv" }).element;
 
-    // Display & Storage fields
-    const storeFormDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "storeFormDiv" }).element;
-    const duedateDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "duedateDiv" }).element;
 
     // todoPreview related
     const todoPreviewDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "todoPreviewDiv" }).element; 
@@ -116,7 +114,7 @@ const createFormFields = function () {
     return {
         checkbox, todoTitle, todoNotes, dueDate, priority, closeButton, resetButton, confirmButton, button, editableForm,
         editableDialog, readOnlyForm, readOnlyDialog, todoPreviewDiv, quickDetailsDiv, quickActionDiv, duedateDiv, viewButton, 
-        editButton, deleteButton, storeFormDiv, addNoteButtonToTodoListPane, projectDiv, projectTitleForm, projectTitleDiv,
+        editButton, deleteButton, readOnlyFormDiv, addNoteButtonToTodoListPane, projectDiv, projectTitleForm, projectTitleDiv,
         todoFieldset, todoListPaneContainerDiv, projectHeadingDialog, projectTitle, editProjectNameBtn,
         delProjectBtn, btnDiv, checkBoxLabelDiv
     };

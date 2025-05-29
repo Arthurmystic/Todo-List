@@ -32,7 +32,7 @@ const domElements = (function () {
     const createFieldset = (state) => {
         const fieldset = document.createElement("fieldset");
         const legend = document.createElement("legend");
-        legend.innerText = state.text
+        legend.innerText = state.text;
         fieldset.appendChild(legend);
         return { fieldset };
     };

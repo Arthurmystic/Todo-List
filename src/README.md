@@ -599,3 +599,27 @@
     // });
     
     "displayForm": (ref) => handleDisplayForm(),
+
+  // projectTitleDiv.addEventListener("switch-to-prevProjTitlDiv", () => { // triggereed if delbtn. switches to a prevProjTitlDiv
+    //     delTriggered = true;
+    //     handleProjectSelection();
+    
+     // projectTitleDiv.addEventListener("click", () => { // triggered by directly clicking on a ProjTitlDiv to switch to that project
+    //     if (!delTriggered) {
+    //         handleProjectSelection();
+    //     };
+    //     delTriggered = false;
+    // });
+    
+    // todoListPaneContainer.replaceChildren(projectDiv);
+
+    // console.log(projectDiv)
+
+    // const projectInfo = {
+    //     currDiv: projectDiv,
+    //     projectTitleDiv,
+    //     dataRef: dataAttr,
+    //     btn: addNoteButtonToTodoListPane,
+    // };
+
+    // storeProjectInfo(projectInfo)

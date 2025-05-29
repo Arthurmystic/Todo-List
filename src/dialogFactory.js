@@ -2,16 +2,9 @@
 
 import { createFormFields } from "./createFormElements.js";
 // import { storeData, changeLeftRightBorderColor } from "./universalFunctions.js";
-import { changeLeftRightBorderColor } from "./universalFunctions.js";
 import { parseISO, format } from "date-fns";
-import { renderTodoPreview, renderProjectTitle} from "./dialogProcessor.js";
+import { renderProjectTitle} from "./dialogProcessor.js";
 import { storeProjectInfo, storeEditableDialog, storeReadOnlyDialog } from "./pageLoad.js";
-
-// Sequence, on add note, editableDialog appears (via createDialog). on closing dialog, storeForm is invoked such that it
-// stores the info into various stores and passes it on  to renderTodoPreview to be displayed on the screen as preview 
-// in brief. createEditableTodoDialogs is used to open the form. renderTodoPreview processes and stores that form's data and then uses renderTodoPreview to show the result.
-
-let inEditingMode = false; // not in editing mode by default notEditing
 
 // const storeEditableDialog = storeData();
 // const storeReadOnlyDialog = storeData();
@@ -24,7 +17,6 @@ function createEditableTodoDialogs(currProjectDiv) {
         confirmButton, editableForm, todoFieldset, editableDialog, btnDiv } = createFormFields();
 
     const dataAttr = crypto.randomUUID();
-    // const dataAttr = currProjectDiv.dataset.ref // also const dataAttr = currProjectDiv.getAttribute("data-ref")
 
     // Creating editable dialog
     editableDialog.dataset.ref = dataAttr; // assigning data-ref to ediatble dialog.
@@ -34,7 +26,7 @@ function createEditableTodoDialogs(currProjectDiv) {
     editableForm.appendChild(closeButton);
 
     editableForm.appendChild(todoTitle.label);
-    editableForm.appendChild(todoTitle.element);  // the 'element' is 'input' in all.
+    editableForm.appendChild(todoTitle.element); 
 
     editableForm.appendChild(todoNotes.label);
     editableForm.appendChild(todoNotes.textarea);
@@ -63,7 +55,7 @@ function createEditableTodoDialogs(currProjectDiv) {
 };
 
 function createReadOnlyDialog(todoEditableForm, dataSetAttr) {
-    const { readOnlyDialog, readOnlyForm, storeFormDiv, closeButton } = createFormFields();
+    const { readOnlyDialog, readOnlyFormDiv, closeButton } = createFormFields();
 
     readOnlyDialog.dataset.ref = dataSetAttr; // assigning data-ref attribute
 
@@ -71,21 +63,20 @@ function createReadOnlyDialog(todoEditableForm, dataSetAttr) {
     const notesValue = todoEditableForm.elements["todo-notes"].value;
 
     // format(duedate, "yyyy-MM-dd")
-
     const rawDueDateValue = todoEditableForm.elements["todo-dueDate"].value; // in yyyy-mm-dd format (default)  
     const dueDateValue = rawDueDateValue ? format(rawDueDateValue, "MMMM d, yyyy") : ''; // in mmmm d, yyyy format
 
     const priorityListValue = todoEditableForm.elements["priorityList"].value;
 
-    storeFormDiv.innerHTML = `
+    readOnlyFormDiv.innerHTML = `
                             <strong>Title: </strong>   ${titleValue} <br> <br>
                             <strong>Notes: </strong>     ${notesValue} <br><br>
                             <strong>Due Date: </strong>  ${dueDateValue} <br> <br>
                             <strong>Priority: </strong>  ${priorityListValue}
                             `
-    readOnlyForm.appendChild(closeButton);
-    readOnlyForm.appendChild(storeFormDiv);
-    readOnlyDialog.appendChild(readOnlyForm);
+
+    readOnlyDialog.appendChild(closeButton);
+    readOnlyDialog.appendChild(readOnlyFormDiv);
 
     readOnlyDialog.querySelectorAll("*").forEach(child => {
         child.dataset.ref = dataSetAttr; // assign data-ref to children and grandchildren of readOnlyDialog 
@@ -95,7 +86,6 @@ function createReadOnlyDialog(todoEditableForm, dataSetAttr) {
 }
 
 function createProjectTitleDialog() {
-    inEditingMode = false;  // not in editing mode by default
     const { projectHeadingDialog, projectTitleForm, projectTitle, button, btnDiv, closeButton } = createFormFields();
 
     projectTitleForm.setAttribute("method", "dialog");
