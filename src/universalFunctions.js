@@ -1,13 +1,14 @@
 // universalFunctions.js
 
-import { storeEditableDialog, storeReadOnlyDialog, storeProjectInfo } from "./dialogFactory.js";
+import { createFormFields } from "./createFormElements.js";
+import { generateProject } from "./createProject.js"   
 
 // Stores data in an array
 function storeData() {
     const storageArr = [];
     return function dataStorage(data) {
         if (data !== undefined && !storageArr.includes(data)) storageArr.push(data); // store data if it is not already inside the storageArr
-        return storageArr;
+        return storageArr;    
     }
 };
 
@@ -29,57 +30,27 @@ function changeLeftRightBorderColor(div, priority) {
                      border-right: ${priorities[priority][0]} solid ${priorities[priority][1]}`;
 }
 
-// function createStorageArrays() {
-//     const storeEditableDialog = storeData();
-//     const storeReadOnlyDialog = storeData();
-//     const storeProjectInfo = storeData(); // for storing project divs
-//     return { storeEditableDialog, storeReadOnlyDialog, storeProjectInfo};
-// }
+function defaultProject() {
+    const { projectTitleDiv, editProjectNameBtn, delProjectBtn, quickDetailsDiv, quickActionDiv } = createFormFields();
+    const dataAttr = `${crypto.randomUUID()} - defaultProject`;
 
-// stores to local storage
-// function storeInLocalStorage() {
-//     if (storeProjectInfo) localStorage.setItem("storeProjectInfoLS", JSON.stringify(storeProjectInfo));
-//     if (storeReadOnlyDialog) localStorage.setItem("storeProjectInfoLS", JSON.stringify(storeReadOnlyDialog));
-//     if (storeEditableDialog) localStorage.setItem("storeEditableDialogLS", JSON.stringify(storeEditableDialog));
-//     // return(storeProjectInfoLS,storeProjectInfoLS, storeEditableDialogLS)
-// }
+    quickActionDiv.dataset.action = "selectProjectTitleDiv";
+    quickDetailsDiv.dataset.action = "selectProjectTitleDiv";
+    quickDetailsDiv.innerText = "Default Project";
 
-function storeInLocalStorage() {
-    // console.log(projectDiv.innerHTML); 
+    quickActionDiv.appendChild(editProjectNameBtn);
+    quickActionDiv.appendChild(delProjectBtn);
+    editProjectNameBtn.classList.add("default");
+    delProjectBtn.classList.add("default");
 
+    projectTitleDiv.appendChild(quickDetailsDiv);
+    projectTitleDiv.appendChild(quickActionDiv);
+    projectsPane.appendChild(projectTitleDiv);
 
-    // const text1 = ["arthur"];
-    // const arr1 = storeReadOnlyDialog();
+    setActiveClass("projectTitleDiv", projectTitleDiv);
+    generateProject(projectTitleDiv, dataAttr);
+    
+    return { projectTitleDiv };
+};
 
-    // localStorage.setItem("trial", JSON.stringify(text1));
-    // localStorage.setItem("array", JSON.stringify(arr1));
-
-    // console.log ("text 1 - no inparse:  ", localStorage.getItem("trial"));
-    // console.log ("text 1 - with parse:  ", JSON.parse(localStorage.getItem("trial")));
-
-    // console.log ("Array  :  ", JSON.parse(localStorage.getItem("array")));
-    // console.log ("Arr1  :  ", arr1.length>1?arr1[0]: ' ');
-
-
-
-
-
-
-
-    // console.log (storeProjectInfo(), storeReadOnlyDialog(), storeEditableDialog())
-    // const nam = ["arthir"];
-    // const arr = storeReadOnlyDialog();
-    // localStorage.setItem("nam", JSON.stringify(nam));
-    // localStorage.setItem("storeProjectInfoLS", storeProjectInfo());
-    // localStorage.setItem("storeDispDiagInfoLS", JSON.stringify(arr));
-    // localStorage.setItem("storeEditableDialogLS", JSON.stringify(storeEditableDialog()));
-
-    // // console.log (localStorage.getItem("nam"))
-    // // console.log (localStorage.getItem("storeProjectInfoLS"),'pjInf', storeProjectInfo())
-    // console.log("arr: ", arr)
-    // console.log(localStorage.getItem("storeDispDiagInfoLS"), storeReadOnlyDialog())
-    // // console.log (localStorage.getItem("storeEditableDialogLS"), storeEditableDialog())
-    // // return(storeProjectInfoLS,storeProjectInfoLS, storeEditableDialogLS)
-}
-
-export { storeData, changeLeftRightBorderColor, storeInLocalStorage, setActiveClass }
+export { storeData, changeLeftRightBorderColor, setActiveClass, defaultProject}

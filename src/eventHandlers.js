@@ -56,12 +56,12 @@ function handleCancelSaveProject(e) {
 // Deletes the current project, its name and switches to the previous one.
 function handleDeleteProject(e, dataAttr) {
     const idx = storeProjectInfo().findIndex(projInfo => projInfo.dataRef === dataAttr);
-    const currProjectDiv = storeProjectInfo()[idx].currDiv;
-    const currTodoListAddBtn = storeProjectInfo()[idx].btn
+    const currProjectDiv = storeProjectInfo()[idx].projectDiv;
+    const currTodoListAddBtn = storeProjectInfo()[idx].addNoteBtn
     const currProjectTitleDiv = storeProjectInfo()[idx].projectTitleDiv;
     const prevProjTitlDiv = storeProjectInfo()[idx - 1].projectTitleDiv;
 
-    // ** below makes currDiv and its btn present to the dom, in case user didnt first select them.
+    // ** below makes currDiv and its addNoteBtn present to the dom, in case user didnt first select them.
     // useful if user, while on a different projectTitleDiff, deletes another projectTitleDiv
     // without selecting it first.
     todoListPaneContainer.replaceChildren(currProjectDiv); // **
@@ -79,11 +79,10 @@ function handleDeleteProject(e, dataAttr) {
 
 // Handles switching between projects (whether by click or custom event) and updates the UI to reflect the selected project..
 function selectProjectOnClick(e, dataAttr, delTriggered) { // 
-    // const titleDiv = e.target;
     const idx = storeProjectInfo().findIndex(projInfo => projInfo.dataRef === dataAttr);
     const selectedProjectTitleDiv = storeProjectInfo()[idx].projectTitleDiv;
-    const correspondingProjectDiv = storeProjectInfo()[idx].currDiv;
-    const correspondingaddNoteBtn = storeProjectInfo()[idx].btn;
+    const correspondingProjectDiv = storeProjectInfo()[idx].projectDiv;
+    const correspondingaddNoteBtn = storeProjectInfo()[idx].addNoteBtn;
 
     if (!delTriggered) {
         setActiveClass("projectTitleDiv", selectedProjectTitleDiv);
@@ -97,8 +96,7 @@ function selectProjectOnClick(e, dataAttr, delTriggered) { //
 
 // Opens dialog to add a new todo.
 function handleAddNote() {
-    const currProjectDiv = todoListPaneContainer.querySelector(".projectDiv")
-    const { editableDialog } = createEditableTodoDialogs(currProjectDiv);
+    const { editableDialog } = createEditableTodoDialogs();
     document.body.appendChild(editableDialog);
     editableDialog.showModal();
 }
@@ -109,10 +107,11 @@ function handleEditableNoteForm(e, dataAttr, inEditingMode) {
     const currEditableDialog = e.target.closest("dialog");
     const currProjectDiv = document.querySelector(".projectDiv");
     const currEditableForm = currEditableDialog.querySelector("form");
-    
+
     if (!inEditingMode) {
         storeEditableDialog(currEditableDialog);
-        const { titleValue, notesValue, priorityListValue, dueDateValue } = createReadOnlyDialog(currEditableForm, dataAttr);
+        const { titleValue, notesValue, priorityListValue, dueDateValue, readOnlyDialog } = createReadOnlyDialog(currEditableForm, dataAttr);
+        document.body.appendChild(readOnlyDialog);
         renderTodoPreview(currProjectDiv, titleValue, notesValue, priorityListValue, dueDateValue, dataAttr);
 
     } else { // in editing mode
@@ -162,7 +161,6 @@ function handleEditNote(dataAttr) {
 function handleViewNote(dataAttr) {
     const displayDialogArray = storeReadOnlyDialog() // get the array containing readOnlyDialog
         .filter((arr) => arr.dataset.ref === dataAttr); // filter out the array whose data-ref == datasetAttr
-    document.body.appendChild(displayDialogArray[0]);
     displayDialogArray[0].showModal();
 }
 
@@ -191,6 +189,19 @@ function handleCloseDialog(e) {
     dialog.close()
 }
 
-export { handleAddProject, handleAddNote, handleViewNote, handleEditNote, handleDeleteNote, handleCloseDialog,
-         handleEditableNoteForm, selectProjectOnClick, handleProjectForm, handleEditProjectName, handleCancelSaveProject,
-         handleDeleteProject };
+function handleCheckBox(dataAttr) {
+    const checkbox = document.querySelector(`.checkbox[data-ref="${dataAttr}"]`);
+    console.log('yes')
+ 
+    if (checkbox.checked) {
+        checkbox.setAttribute("checked", "true");
+    } else {
+        checkbox.removeAttribute("checked");
+    }
+}
+
+export {
+    handleAddProject, handleAddNote, handleViewNote, handleEditNote, handleDeleteNote, handleCloseDialog,
+    handleEditableNoteForm, selectProjectOnClick, handleProjectForm, handleEditProjectName, handleCancelSaveProject,
+    handleDeleteProject, handleCheckBox
+};

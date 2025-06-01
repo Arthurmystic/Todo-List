@@ -623,3 +623,230 @@
     // };
 
     // storeProjectInfo(projectInfo)
+    
+    
+    
+    
+// const getProjectInfo = () => {
+//     const storedData = localStorage.getItem("projectInfoStoreLS")
+//     return storedData ? JSON.parse(storedData): null
+// };
+
+// const getEditableDialogs = () => {
+//     const storedData = localStorage.getItem("editableDialogStoreLS");
+//     return storedData ? JSON.parse(storedData) : null;
+// };
+
+// const getReadOnlyDialogs = () => {
+//     const storedData = localStorage.getItem("readOnlyDiagStoreLS");
+//     return storedData ? JSON.parse(storedData) : null
+// };
+
+
+// function getProjectInfo(){
+//     return 
+
+// }
+
+// document.addEventListener("DOMContentLoaded", () => {
+//     console.log("loaded");
+//     const stringProjInfo = localStorage.getItem("storeProjectInfoLS1");
+//     const stringDispDialInfo = localStorage.getItem("storeDisplayDialogLS1");
+//     const stringEditDiaInfo = localStorage.getItem("storeEditableDialogLS1");
+
+//     console.log(typeof stringProjInfo, stringDispDialInfo, stringEditDiaInfo)
+//     storeProjectInfo = (stringProjInfo)?
+//         JSON.parse(stringProjInfo) :
+//         storeData();
+//     storeReadOnlyDialog = (stringDispDialInfo)?
+//         JSON.parse(stringDispDialInfo) :
+//         storeData();
+//     storeEditableDialog = (stringEditDiaInfo)?
+//         JSON.parse(stringEditDiaInfo) :
+//         storeData();
+//     return { storeEditableDialog, storeReadOnlyDialog, storeProjectInfo };
+// })
+
+// class HandleLocalStorage {
+//     constructor(storeProjectInfo, storeEditableDialog, storeReadOnlyDialog) {
+//         this.storeProjectInfo = storeProjectInfo;
+//         this.storeEditableDialog = storeEditableDialog;
+//         this.storeReadOnlyDialog = storeReadOnlyDialog;
+//         this.editableDialogsHTML = [];
+//         this.readOnlyDialogsHTML = [];
+//         this.projectInfoHTMLStore = {
+//             projectDiv: [],
+//             projectTitleDiv: [],
+//             dataRef: [],
+//             addNoteBtn: [],
+//         }
+//     }
+
+//     setLocalStorage() {
+//         for (let arr of this.storeProjectInfo) {
+//             this.projectInfoHTMLStore.projectDiv.push(arr.currDiv.outerHTML);
+//             this.projectInfoHTMLStore.projectTitleDiv.push(arr.projectTitleDiv.outerHTML);
+//             this.projectInfoHTMLStore.dataRef.push(arr.dataRef);
+//             this.projectInfoHTMLStore.addNoteBtn.push(arr.btn.outerHTML);
+//         }
+//         for (let arr of this.storeEditableDialog) {
+//             this.editableDialogsHTML.push(arr.outerHTML);
+//         }
+
+//         for (let arr of this.storeReadOnlyDialog) {
+//             this.readOnlyDialogsHTML.push(arr.outerHTML);
+//         }
+
+//         localStorage.setItem("projectInfoStoreLS", JSON.stringify(this.projectInfoHTMLStore));
+//         localStorage.setItem("editableDialogStoreLS", JSON.stringify(this.editableDialogsHTML));
+//         localStorage.setItem("readOnlyDiagStoreLS", JSON.stringify(this.readOnlyDialogsHTML));
+//     }
+
+//     getFromLocalStorage(key){
+//         const storedData = localStorage.getItem(key)
+//     return storedData ? JSON.parse(storedData) : null 
+//     }
+// }
+
+// const getProjectInfo = getFromLocalStorage("projectInfoStoreLS");
+// const getEditableDialogs = getFromLocalStorage("editableDialogStoreLS");
+// const getReadOnlyDialogs = getFromLocalStorage("readOnlyDiagStoreLS");
+
+
+// function createStorageArrays() {
+//     const storeEditableDialog = storeData();
+//     const storeReadOnlyDialog = storeData();
+//     const storeProjectInfo = storeData(); // for storing project divs
+//     return { storeEditableDialog, storeReadOnlyDialog, storeProjectInfo};
+// }
+
+// stores to local storage
+// function storeInLocalStorage() {
+//     if (storeProjectInfo) localStorage.setItem("storeProjectInfoLS", JSON.stringify(storeProjectInfo));
+//     if (storeReadOnlyDialog) localStorage.setItem("storeProjectInfoLS", JSON.stringify(storeReadOnlyDialog));
+//     if (storeEditableDialog) localStorage.setItem("storeEditableDialogLS", JSON.stringify(storeEditableDialog));
+//     // return(storeProjectInfoLS,storeProjectInfoLS, storeEditableDialogLS)
+// }
+
+
+// find length of storeProjectInfo(). iterate over it. in each iter, get currDiv.outerHTML push it to locStorRawArray.
+// then stringify loStorRawArray and save it in locastorage.
+// do the same for projTitle, adttodobtn, and dataref - or use obj.
+// do same for editdial and readonly dig.
+
+// const projectInfo = {
+//         currDiv: projectDiv, // this contains the to dos of a given project. todoPreview is stored in projectDiv
+//         projectTitleDiv,     // this contains the title of the project
+//         dataRef: dataAttr, // data-ref for both projectDiv and projectTitle. elements inside projectDiv also have their own unique but simila data-ref
+//         btn: addNoteButtonToTodoListPane, // this contains the "addNote btn "of the project"
+//     };
+
+// step 1. exp with storeprojinfo
+// const localStoreRawArray = [];
+
+// let storeProjectInfo = storeData();
+// let storeReadOnlyDialog = storeData();
+// let storeEditableDialog = storeData();
+
+// const projectInfo = {
+//         currDiv: projectDiv, // this contains the to dos of a given project. todoPreview is stored in projectDiv
+//         projectTitleDiv,     // this contains the title of the project
+//         dataRef: dataAttr, // data-ref for both projectDiv and projectTitle. elements inside projectDiv also have their own unique but simila data-ref
+//         btn: addNoteButtonToTodoListPane, // this contains the "addNote btn "of the project"
+//     };
+
+
+
+            // reinstatedDataRef = getProjectInfo().allDataRefs.filter(arr => arr.includes("defaultProject")); //defaultProjectDiv.dataset.ref;
+
+            // console.log ('reinstatedProjectDiv: ', reinstatedProjectDiv[0], getProjectInfo().allProjectDivs) 
+            // const storedProjDiv = document.createElement()
+            // todoListPaneContainer.replaceChildren(reinstatedProjectDiv);
+            // todoListButtonDiv.innerHTML = reinstatedAddNoteBtn;
+
+
+            // const defaultProjectDiv = todoListPaneContainer.querySelector('div');
+            // const reinstatedDataRef = defaultProjectDiv.dataset.ref;
+            // const defaultProjectTitleDiv = projectsPane.querySelector(`.projectTitleDiv[data-ref="${reinstatedDataRef}"]`);
+            // const defaultAddNoteBtn = todoListButtonDiv.querySelector("button");
+
+            // for (let dataRefLS of getProjectInfo().allDataRefs) {
+            //     console.log(dataRefLS[0], getProjectInfo().allProjectDivs)
+            //     const projectDiv = getProjectInfo().allProjectDivs.filter(arr => arr? arr.includes(dataRefLS[0]): false);
+            //     const projectTitleDiv = getProjectInfo().allProjectTitleDivs.filter(arr => arr.includes(dataRefLS[0]));
+            //     const dataRef = getProjectInfo().allDataRefs.filter(arr => arr.includes(dataRefLS[0]));
+            //     const addNoteBtn = getProjectInfo().allAddNoteBtns.filter(arr => arr.includes(dataRefLS[0]));
+            //     // console.log("dataRef: ", typeof dataRefLS, dataRefLS, typeof projectDiv)
+
+            //     // if (dataRefLS.includes("defaultProject")){
+            //     //     reinstatedProjectDiv = projectDiv
+            //     //     reinstatedAddNoteBtn = 
+
+            //     // }
+
+            //     const projectInfo = {
+            //         projectDiv,
+            //         projectTitleDiv,
+            //         dataRef,
+            //         addNoteBtn,
+            //     }; 
+            //     storeProjectInfo(projectInfo);
+            // }
+            
+             // reinstatedProjectDiv = getProjectInfo().allProjectDivs.filter(arr => arr.includes("defaultProject"));
+        // reinstatedAddNoteBtn = getProjectInfo().allAddNoteBtns.filter(arr => arr.includes("defaultProject"));
+        // reinstatedDataRef = getProjectInfo().allDataRefs.filter(arr => arr.includes("defaultProject")); //defaultProjectDiv.dataset.ref;
+
+        // // console.log ('reinstatedProjectDiv: ', reinstatedProjectDiv[0], getProjectInfo().allProjectDivs) 
+        // // const storedProjDiv = document.createElement()
+        // todoListPaneContainer.innerHTML = reinstatedProjectDiv;
+        // todoListButtonDiv.innerHTML = reinstatedAddNoteBtn;
+
+
+        // const defaultProjectDiv = todoListPaneContainer.querySelector('div');
+        // // const reinstatedDataRef = defaultProjectDiv.dataset.ref;
+        // const defaultProjectTitleDiv = projectsPane.querySelector(`.projectTitleDiv[data-ref="${reinstatedDataRef}"]`);
+        // const defaultAddNoteBtn = todoListButtonDiv.querySelector("button");
+
+        // const defaultProjectInfo = {
+        //     projectDiv: defaultProjectDiv, // this contains the to dos of a given project. todoPreview is stored in projectDiv
+        //     projectTitleDiv: defaultProjectTitleDiv,     // this contains the title of the project
+        //     dataRef: reinstatedDataRef, // data-ref for both projectDiv and projectTitle. elements inside projectDiv also have their own unique but simila data-ref
+        //     addNoteBtn: defaultAddNoteBtn, // this contains the "addNoteBtn "of the project"
+        // }
+        // storeProjectInfo(defaultProjectInfo);
+
+
+        // console.log("defaultProjectTitleDiv: =>: ", defaultProjectTitleDiv)
+        
+                // projectsPane.innerHTML = getProjectInfo().allProjectTitleDivs;
+
+        // projectsPane.sort((a, b) =>{
+        //     aContainsDefaultProject = a.includes("defaultProject")? 1: 0;
+        //     bContainsDefaultProject = b.includes("defaultProject")? 1: 0;
+
+        //     return aContainsDefaultProject - bContainsDefaultProject;
+        // })
+
+    // getProjectInfo() ? storeProjectInfo(getProjectInfo()) : null;
+
+
+    // storeProjectInfo = getProjectInfo() ? 
+    // (()=> {const reinstatedProjectDiv = getProjectInfo().allProjectDivs.filter(arr => arr[0].includes("Default Project"))})()
+    // // getProjectInfo() 
+    // : storeData();
+    
+    // document.body.addEventListener("click", (e) => {
+//     if (e.target.tagName === "BUTTON") {
+//         storeInLocalStorage();
+//     };
+// });
+
+// document.body.addEventListener("submit", (e) => {
+//     if (e.target.tagName === "FORM") {
+//         storeInLocalStorage();
+//     }
+// });
+
+// const btId = document.querySelector("#unload"); 
+

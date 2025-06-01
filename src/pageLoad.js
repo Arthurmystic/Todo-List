@@ -1,40 +1,76 @@
-import { storeData } from "./universalFunctions.js";
+//pageLoad.js
 
-// if not in dom, create storage data with store = stadata() for each 
+import { storeData, defaultProject } from "./universalFunctions.js";
+import { getProjectInfo, getEditableDialogs, getReadOnlyDialogs } from "./localStorageHandler.js";
+import { domElements } from "./DOM-Elements.js";
+import { setActiveClass } from "./universalFunctions.js";
+import { createFormFields } from "./createFormElements.js";
+import { createProjectTitleDialog } from "./dialogFactory.js";
 
-document.addEventListener("DOMContentLoaded", () => {
-    console.log('loaded')
-
-});
+const { todoListPaneContainer, projectsPane } = domElements;
 
 let storeProjectInfo = storeData();
 let storeReadOnlyDialog = storeData();
 let storeEditableDialog = storeData();
 
-// document.addEventListener("DOMContentLoaded", () => {
-//     console.log("loaded");
-//     const stringProjInfo = localStorage.getItem("storeProjectInfoLS1");
-//     const stringDispDialInfo = localStorage.getItem("storeDisplayDialogLS1");
-//     const stringEditDiaInfo = localStorage.getItem("storeEditableDialogLS1");
+document.addEventListener("DOMContentLoaded", () => {
+    if (getProjectInfo()) {
+        (function reinstateProjectDataFromLocalStorage() {
+            for (let projectInfoFromLS of getProjectInfo()) {
+                const { projectDiv, addNoteButtonToTodoListPane, projectTitleDiv } = createFormFields();
+                projectDiv.innerHTML = projectInfoFromLS.projectDivLS;
+                projectTitleDiv.innerHTML = projectInfoFromLS.projectTitleDivLS;
+                const dataAttr = projectInfoFromLS.dataRefLS;
+                addNoteButtonToTodoListPane.innerHTML = projectInfoFromLS.addNoteBtnLS;
 
-//     console.log(typeof stringProjInfo, stringDispDialInfo, stringEditDiaInfo)
-//     storeProjectInfo = (stringProjInfo)?
-//         JSON.parse(stringProjInfo) :
-//         storeData();
-//     storeReadOnlyDialog = (stringDispDialInfo)?
-//         JSON.parse(stringDispDialInfo) :
-//         storeData();
-//     storeEditableDialog = (stringEditDiaInfo)?
-//         JSON.parse(stringEditDiaInfo) :
-//         storeData();
-//     return { storeEditableDialog, storeReadOnlyDialog, storeProjectInfo };
-// })
+                //Re-assign data-refs
+                projectDiv.dataset.ref = dataAttr;
+                projectTitleDiv.dataset.ref = dataAttr;
+                addNoteButtonToTodoListPane.dataset.ref = dataAttr;
+
+                const projectInfo = {
+                    projectDiv,
+                    projectTitleDiv,
+                    dataRef: dataAttr,
+                    addNoteBtn: addNoteButtonToTodoListPane,
+                }
+                storeProjectInfo(projectInfo);
+
+                //repopulating projectTitleDiv and creating new dialogs for them
+                projectsPane.appendChild(projectTitleDiv);
+                const { projectHeadingDialog } = createProjectTitleDialog(dataAttr);
+                document.body.appendChild(projectHeadingDialog);
+            }
+
+            // Setting up default project
+            const defProjIdx = storeProjectInfo().findIndex(Proj => Proj.dataRef.includes("defaultProject"));
+            const { projectDiv, projectTitleDiv, addNoteBtn } = storeProjectInfo()[defProjIdx];
+
+            todoListPaneContainer.replaceChildren(projectDiv);
+            todoListButtonDiv.replaceChildren(addNoteBtn);
+            setActiveClass("projectTitleDiv", projectTitleDiv);
+
+            // restoring dialogs
+            getEditableDialogs().forEach(dialog => {
+                const { editableDialog } = createFormFields();
+                editableDialog.innerHTML = dialog;
+                editableDialog.dataset.ref = editableDialog.firstChild.dataset.ref; // reassigning dataref
+                storeEditableDialog(editableDialog);
+                document.body.appendChild(editableDialog);
+            })
+
+            getReadOnlyDialogs().forEach(dialog => {
+                const { readOnlyDialog } = createFormFields();
+                readOnlyDialog.innerHTML = dialog;
+                readOnlyDialog.dataset.ref = readOnlyDialog.firstChild.dataset.ref; // reassigning dataref
+                storeReadOnlyDialog(readOnlyDialog);
+                document.body.appendChild(readOnlyDialog);
+            })
+        })();
+
+    } else {
+        defaultProject()
+    }
+});
 
 export { storeEditableDialog, storeReadOnlyDialog, storeProjectInfo };
-
-
-function storeInLocalStorage() {
-    if (storeProjectInfo) localStorage.setItem("storeProjectInfoLS", JSON.stringify(storeProjectInfo));
-    if (storeReadOnlyDialog) localStorage.setItem("storeDisplayDialogLS", JSON.stringify(storeReadOnlyDialog));
-    if (storeEditableDialog) localStorage.setItem("storeEditableDialogLS", JSON.stringify(storeEditableDialog));
-}

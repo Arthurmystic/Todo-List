@@ -1,18 +1,13 @@
 // dialogFactory.js
 
 import { createFormFields } from "./createFormElements.js";
-// import { storeData, changeLeftRightBorderColor } from "./universalFunctions.js";
 import { parseISO, format } from "date-fns";
 import { renderProjectTitle} from "./dialogProcessor.js";
-import { storeProjectInfo, storeEditableDialog, storeReadOnlyDialog } from "./pageLoad.js";
-
-// const storeEditableDialog = storeData();
-// const storeReadOnlyDialog = storeData();
-// const storeProjectInfo = storeData(); // for storing project divs 
+import { storeReadOnlyDialog } from "./pageLoad.js";
 
 // CREATE EDITABLE DIALOGBOX
 
-function createEditableTodoDialogs(currProjectDiv) {
+function createEditableTodoDialogs() {
     const { todoTitle, todoNotes, dueDate, priority, closeButton, resetButton,
         confirmButton, editableForm, todoFieldset, editableDialog, btnDiv } = createFormFields();
 
@@ -82,14 +77,14 @@ function createReadOnlyDialog(todoEditableForm, dataSetAttr) {
         child.dataset.ref = dataSetAttr; // assign data-ref to children and grandchildren of readOnlyDialog 
     });
     storeReadOnlyDialog(readOnlyDialog);
-    return { titleValue, notesValue, priorityListValue, dueDateValue }
+    return { titleValue, notesValue, priorityListValue, dueDateValue, readOnlyDialog }
 }
 
-function createProjectTitleDialog() {
+function createProjectTitleDialog(dataRefAttr) {
     const { projectHeadingDialog, projectTitleForm, projectTitle, button, btnDiv, closeButton } = createFormFields();
 
     projectTitleForm.setAttribute("method", "dialog");
-    const dataAttr = crypto.randomUUID();
+    const dataAttr = dataRefAttr ? dataRefAttr: crypto.randomUUID();
 
     projectTitleForm.appendChild(closeButton);
 

@@ -72,7 +72,7 @@ const createFormFields = function () {
     // TODO LIST PANE RELATED
     //General
     const todoListPaneContainerDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "todoListPaneContainer" }).element;
-    const addNoteButtonToTodoListPane = createButton("button", "+ New Task", { type: "button", elemClass: "addNoteButton", id: crypto.randomUUID(), dataAction: "addNote"});
+    const addNoteButtonToTodoListPane = createButton("button", "+ New Task", { type: "button", elemClass: "addNoteButton", id: crypto.randomUUID(), dataAction: "addNote" });
     const btnDiv = buildElement("div", { id: crypto.randomUUID(), elemClass: "btnDiv" }).element;
 
     // Editable dialog related
@@ -80,7 +80,7 @@ const createFormFields = function () {
     const todoFieldset = createFieldset({ text: "TODO LIST" }).fieldset;
     const editableForm = buildElement("form", { name: "editableForm", id: crypto.randomUUID(), dataAction: "editableNoteForm" }).element;
     const todoNotes = createTextAreaElement({ name: "todo-notes", id: crypto.randomUUID(), placeholder: "Notes" });
-    const checkbox = createInputElement("input", { name: "todo-checkbox", type: "checkbox", elemClass: "checkbox", text: "Title: ", id: crypto.randomUUID() });
+    const checkbox = createInputElement("input", { name: "todo-checkbox", type: "checkbox", elemClass: "checkbox", text: "Title: ", id: crypto.randomUUID(), dataAction: "toggleCheckbox" });
     const todoTitle = createInputElement("input", { name: "todo-title", type: "text", text: "Title: ", id: crypto.randomUUID(), required: "required" });
     const dueDate = createInputElement("input", { name: "todo-dueDate", type: "date", text: "Due Date: ", id: crypto.randomUUID() });
     const priority = createPriorityOptions({ name: "priorityList", text: "Priority: ", id: crypto.randomUUID() });

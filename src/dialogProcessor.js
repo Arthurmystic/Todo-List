@@ -1,10 +1,7 @@
 // dialogProcessor.js
 
 import { createFormFields } from "./createFormElements.js";
-// import { storeData, changeLeftRightBorderColor } from "./universalFunctions.js";
 import { changeLeftRightBorderColor } from "./universalFunctions.js";
-import { parseISO, format } from "date-fns";
-import { storeEditableDialog, storeReadOnlyDialog } from "./pageLoad.js"; 
 
 // Populates  summary/preview of notes on screen with Edit, Delete and View buttons attached.
 function renderTodoPreview(currProjectDiv, title, notes, priorityValue, duedate, dataSetAttr) {
@@ -35,9 +32,8 @@ function renderTodoPreview(currProjectDiv, title, notes, priorityValue, duedate,
     changeLeftRightBorderColor(todoPreviewDiv, priorityValue); // update border color
 
     todoPreviewDiv.querySelectorAll("*").forEach(child => {
-        child.dataset.ref = dataSetAttr;  
+        child.dataset.ref = dataSetAttr;
     });
-
 }
 
 function renderProjectTitle() {

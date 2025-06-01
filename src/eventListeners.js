@@ -1,8 +1,10 @@
 // eventListeners.js
 
+import { storeInLocalStorage } from "./localStorageHandler.js";
 import { handleAddProject, handleAddNote, handleViewNote, handleEditNote, handleDeleteNote, handleCloseDialog,
          handleEditableNoteForm, selectProjectOnClick, handleProjectForm, handleEditProjectName, handleCancelSaveProject,
-         handleDeleteProject } from "./eventHandlers.js";
+         handleDeleteProject, handleCheckBox 
+        } from "./eventHandlers.js";
 
 let inEditingMode = false;
 
@@ -13,6 +15,7 @@ function setupEventListeners() {
         viewNote: (state) => handleViewNote(state.dataAttr),
         editNote: (state) => { handleEditNote(state.dataAttr); inEditingMode = true; },
         deleteNote: (state) => handleDeleteNote(state.dataAttr),
+        toggleCheckbox: (state) => handleCheckBox(state.dataAttr),
 
         // PROJECTS
         addProject: () => { inEditingMode = false; handleAddProject() },
@@ -35,6 +38,7 @@ function setupEventListeners() {
         const action = actionElement ? actionElement.dataset.action : null;
         const dataAttr = e.target.dataset.ref;
         if (action && !action.includes("Form")) handlers[action]({e, dataAttr});
+        if (action === "deleteNote" || action === "deleteProject" ) storeInLocalStorage();
     })
 
     document.addEventListener("submit", (e) => {
@@ -46,6 +50,14 @@ function setupEventListeners() {
         // NB: Reset form is intrinsically implemented since 'clear' button type was set to`reset` - no need for event listeners for it.
         // NB: Much as submit is handled intrinsically (since button type for save/confirm is submit), the event listener for it is required 
         // so as to process the form after submission. No processing is required for reset/clear hence no need to listen for it.
+        storeInLocalStorage();
+    })
+
+    document.addEventListener("change", (e) => {
+        const type = e.target.type
+        const dataAttr = e.target.dataset.ref;
+        if (type === "chekbox") handlers["toggleCheckbox"]({dataAttr}) 
+        storeInLocalStorage();
     })
 }
 
