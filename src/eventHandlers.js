@@ -164,13 +164,13 @@ function handleViewNote(dataAttr) {
     displayDialogArray[0].showModal();
 }
 
-// Deletes a todo and removes it from the UI and data stores.
+// Deletes a todo and removes it from the UI and data stores. 
 function handleDeleteNote(dataAttr) {
     deleteElem(dataAttr, storeEditableDialog());
     deleteElem(dataAttr, storeReadOnlyDialog());
     const currProjectDiv = todoListPaneContainer.querySelector(".projectDiv");
     const previewDivsList = document.querySelectorAll(".todoPreviewDiv");
-    const selectedPreviewDiv = Array.from(previewDivsList);
+    const selectedPreviewDiv = Array.from(previewDivsList) 
         .filter(div => div.dataset.ref === dataAttr)[0];
     currProjectDiv.removeChild(selectedPreviewDiv);
 }
