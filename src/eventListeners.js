@@ -54,9 +54,9 @@ function setupEventListeners() {
     })
 
     document.addEventListener("change", (e) => {
-        const type = e.target.type
+        const type = e.target.type;
         const dataAttr = e.target.dataset.ref;
-        if (type === "chekbox") handlers["toggleCheckbox"]({dataAttr}) 
+        if (type === "checkbox") handlers["toggleCheckbox"]({dataAttr}); 
         storeInLocalStorage();
     })
 }

@@ -13,7 +13,7 @@ const { buildElement, createLabel, createFieldset, createTextArea, createPriorit
 function createButton(buttonType, text, state) {
     const button = buildElement(buttonType, state).element;  // buildElement  buildElement
     if (text) button.innerText = text;
-    return button;  // document.createElemen
+    return button;  // document.createElement
 };
 
 // CREATE INPUT ELEMENT
@@ -33,7 +33,7 @@ function createTextAreaElement(state) {  // using composition to create the elem
 }
 
 // CREATE PRIORITY OPTIONS
-function createPriorityOptions(state) {  // using composition to create the element
+function createPriorityOptions(state) { 
     return {
         ...createPrioritySelector(state),
         ...createLabel(state),

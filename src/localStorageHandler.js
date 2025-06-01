@@ -12,7 +12,7 @@ function storeInLocalStorage() {
             projectTitleDivLS: arr.projectTitleDiv.innerHTML,
             dataRefLS: arr.dataRef,
             addNoteBtnLS: arr.addNoteBtn.innerHTML,
-        }
+        };
         projectInfoStoreTemp(projInfoLS);
     };
     const editableDialogsHTML = storeEditableDialog().map(dialog => dialog.innerHTML); // can also iterate as above

@@ -3,7 +3,7 @@
 import { parseISO, format } from "date-fns";
 import { changeLeftRightBorderColor, setActiveClass } from "./universalFunctions.js";
 import { createEditableTodoDialogs, createReadOnlyDialog, createProjectTitleDialog, renderProjectTitle } from "./dialogFactory.js";
-import { generateProject } from "./createProject.js"
+import { generateProject } from "./createProject.js";
 import { storeProjectInfo, storeEditableDialog, storeReadOnlyDialog } from "./pageLoad.js";
 import { renderTodoPreview } from "./dialogProcessor.js";
 
@@ -42,7 +42,7 @@ function handleAddProject() {
 // Submits project data (new or edited).
 function handleEditProjectName(dataAttr) {
     const projectTitleDiv = document.querySelector(`.projectTitleDiv[data-ref="${dataAttr}"]`); // can also find it from storeProjectInfo();
-    const currProjectHeadingDialog = document.querySelector(`.projectHeadingDialog[data-ref="${dataAttr}"]`)
+    const currProjectHeadingDialog = document.querySelector(`.projectHeadingDialog[data-ref="${dataAttr}"]`);
     setActiveClass("projectTitleDiv", projectTitleDiv);
     currProjectHeadingDialog.showModal();
 }
@@ -50,14 +50,14 @@ function handleEditProjectName(dataAttr) {
 // Cancels the save and closes the dialog.
 function handleCancelSaveProject(e) {
     const currProjectTitleDialog = e.target.closest("dialog");
-    currProjectTitleDialog.close()
+    currProjectTitleDialog.close();
 }
 
 // Deletes the current project, its name and switches to the previous one.
 function handleDeleteProject(e, dataAttr) {
     const idx = storeProjectInfo().findIndex(projInfo => projInfo.dataRef === dataAttr);
     const currProjectDiv = storeProjectInfo()[idx].projectDiv;
-    const currTodoListAddBtn = storeProjectInfo()[idx].addNoteBtn
+    const currTodoListAddBtn = storeProjectInfo()[idx].addNoteBtn;
     const currProjectTitleDiv = storeProjectInfo()[idx].projectTitleDiv;
     const prevProjTitlDiv = storeProjectInfo()[idx - 1].projectTitleDiv;
 
@@ -170,7 +170,7 @@ function handleDeleteNote(dataAttr) {
     deleteElem(dataAttr, storeReadOnlyDialog());
     const currProjectDiv = todoListPaneContainer.querySelector(".projectDiv");
     const previewDivsList = document.querySelectorAll(".todoPreviewDiv");
-    const selectedPreviewDiv = Array.from(previewDivsList)
+    const selectedPreviewDiv = Array.from(previewDivsList);
         .filter(div => div.dataset.ref === dataAttr)[0];
     currProjectDiv.removeChild(selectedPreviewDiv);
 }
@@ -191,8 +191,6 @@ function handleCloseDialog(e) {
 
 function handleCheckBox(dataAttr) {
     const checkbox = document.querySelector(`.checkbox[data-ref="${dataAttr}"]`);
-    console.log('yes')
- 
     if (checkbox.checked) {
         checkbox.setAttribute("checked", "true");
     } else {

@@ -38,7 +38,6 @@ function renderTodoPreview(currProjectDiv, title, notes, priorityValue, duedate,
 
 function renderProjectTitle() {
     const { projectTitleDiv, quickDetailsDiv, quickActionDiv, editProjectNameBtn, delProjectBtn } = createFormFields();
-
     quickActionDiv.appendChild(editProjectNameBtn);
     quickActionDiv.appendChild(delProjectBtn);
     projectTitleDiv.appendChild(quickDetailsDiv);

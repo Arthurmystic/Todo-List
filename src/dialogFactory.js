@@ -77,8 +77,8 @@ function createReadOnlyDialog(todoEditableForm, dataSetAttr) {
         child.dataset.ref = dataSetAttr; // assign data-ref to children and grandchildren of readOnlyDialog 
     });
     storeReadOnlyDialog(readOnlyDialog);
-    return { titleValue, notesValue, priorityListValue, dueDateValue, readOnlyDialog }
-}
+    return { titleValue, notesValue, priorityListValue, dueDateValue, readOnlyDialog };
+};
 
 function createProjectTitleDialog(dataRefAttr) {
     const { projectHeadingDialog, projectTitleForm, projectTitle, button, btnDiv, closeButton } = createFormFields();
@@ -109,4 +109,4 @@ function createProjectTitleDialog(dataRefAttr) {
     return { projectHeadingDialog, dataAttr };
 };
 
-export { createEditableTodoDialogs, createReadOnlyDialog, createProjectTitleDialog, renderProjectTitle };
+export { createEditableTodoDialogs, createReadOnlyDialog, createProjectTitleDialog, renderProjectTitle }
